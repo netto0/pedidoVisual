@@ -25,8 +25,11 @@ def lerArquivo(nome):
         a.close()
 
 def itensArquivo(cod):
+    import os
+    diretorio = os.getcwd()
+    caminho = f'{diretorio}\{"cadastrosclientes.txt"}'
     try:
-        arq = open(r'C:\Users\Netto\PycharmProjects\projetos\cadastrosclientes.txt')
+        arq = open(fr'{caminho}')
     except:
         print('Arquivo não encontrado')
     linhas = arq.readlines()
