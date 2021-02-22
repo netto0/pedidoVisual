@@ -256,8 +256,10 @@ while True:
                 janela1.un_hide()
 
     #Abrir Bloco de Pedido no Excel
+    diretorioexcel = os.getcwd()
+    nomebloco = "BLOCOPROJETO.xlsx"
     print('CRIANDO ARQUIVO')
-    arquivo = "BLOCOPROJETO.xlsx"
+    arquivo = f"{diretorioexcel}\{nomebloco}"
     wb = load_workbook(arquivo)
     ws = wb.worksheets[0]
 
