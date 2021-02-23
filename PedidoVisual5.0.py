@@ -251,7 +251,7 @@ while True:
             obsPedido = valores['obs']
             janela1.hide()
             break
-        #Função do Botão "Cadastro"
+        #Função do Botão "Cadastro"aaaa
         if janela == janela1 and evento == 'cadastro':
             janela4 = janelaCadastro()
             janela1.hide()
