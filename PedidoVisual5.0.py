@@ -226,31 +226,35 @@ while True:
                 notaPedido = 'S/N'
             elif valores['nota'] == False:
                 notaPedido = ''
-            codigoPedido = int(valores['codigo_cliente'])
-            precobb1 = valores['prc_bb_1kg']
-            precobb2 = valores['prc_bb_2kg']
-            precobb5 = valores['prc_bb_5kg']
-            precogv1 = valores['prc_gv_1kg']
-            precogv5 = valores['prc_gv_5kg']
-            precoverm = valores['prc_verm']
-            precopto = valores['prc_pto']
-            precoscbb = valores['prc_sc_bb']
-            precoscgv = valores['prc_sc_gv']
-            print(
-                f'Barbalho: {precobb}\nGoval: {precogv}\nVermelho: {precoverm}\nPreto: {precopto}\nSaco Barb.: {precoscbb}\nSaco Gov.: {precoscgv}')
-            print()
-            qtdBB1Pedido = int(valores['qtd_bb_1kg'])
-            qtdBB2Pedido = int(valores['qtd_bb_2kg'])
-            qtdBB5Pedido = int(valores['qtd_bb_5kg'])
-            qtdVermPedido = int(valores['qtd_verm'])
-            qtdPretoPedido = int(valores['qtd_pto'])
-            qtdGV1Pedido = int(valores['qtd_gv_1kg'])
-            qtdGV5Pedido = int(valores['qtd_gv_5kg'])
-            qtdSCBBPedido = int(valores['qtd_sc_bb'])
-            qtdSCGVPedido = int(valores['qtd_sc_gv'])
-            obsPedido = valores['obs']
-            janela1.hide()
-            break
+            try:
+                codigoPedido = int(valores['codigo_cliente'])
+                precobb1 = valores['prc_bb_1kg']
+                precobb2 = valores['prc_bb_2kg']
+                precobb5 = valores['prc_bb_5kg']
+                precogv1 = valores['prc_gv_1kg']
+                precogv5 = valores['prc_gv_5kg']
+                precoverm = valores['prc_verm']
+                precopto = valores['prc_pto']
+                precoscbb = valores['prc_sc_bb']
+                precoscgv = valores['prc_sc_gv']
+                print(
+                    f'Barbalho: {precobb}\nGoval: {precogv}\nVermelho: {precoverm}\nPreto: {precopto}\nSaco Barb.: {precoscbb}\nSaco Gov.: {precoscgv}')
+                print()
+                qtdBB1Pedido = int(valores['qtd_bb_1kg'])
+                qtdBB2Pedido = int(valores['qtd_bb_2kg'])
+                qtdBB5Pedido = int(valores['qtd_bb_5kg'])
+                qtdVermPedido = int(valores['qtd_verm'])
+                qtdPretoPedido = int(valores['qtd_pto'])
+                qtdGV1Pedido = int(valores['qtd_gv_1kg'])
+                qtdGV5Pedido = int(valores['qtd_gv_5kg'])
+                qtdSCBBPedido = int(valores['qtd_sc_bb'])
+                qtdSCGVPedido = int(valores['qtd_sc_gv'])
+                obsPedido = valores['obs']
+                janela1.hide()
+                break
+            except:
+                print('Digite um código válido')
+
         #Função do Botão "Cadastro"aaaa
         if janela == janela1 and evento == 'cadastro':
             janela4 = janelaCadastro()
