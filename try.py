@@ -22,7 +22,7 @@ while True:
     def tela_pedido():
         sg.theme('Reddit')
         layout = [
-            [sg.Text('Cód:'), sg.Input(key='codigo_cliente', size=(10, 1)), sg.Checkbox('S/N', key='nota')],
+            [sg.Text('Cód:'), sg.Input(key='codigo_cliente', size=(10, 1)), sg.Checkbox('S/N', key='nota'), sg.Button('Cadastrar',key='cadastro',size=(11,1))],
             [sg.Text('Data (Atual por padrão)'), sg.Button('Digitar Data',key='checkbox_data_nao',size=(11,1)), sg.Button('Limpar Data')],
             #[sg.Text('Preços (Atuais por padrão)'), sg.Button('Digitar Preços',key='checkbox_preco_nao'), sg.Button('Limpar Preços')],
             [sg.Text('Quantidades'),sg.Text('Preços'),sg.Text('R$')],
@@ -222,7 +222,10 @@ while True:
             janela1.hide()
         #Definir Função do Botão Enviar
         if janela == janela1 and evento == 'Enviar':
-
+            if valores['nota'] == True:
+                notaPedido = 'S/N'
+            elif valores['nota'] == False:
+                notaPedido = ''
             try:
                 codigoPedido = int(valores['codigo_cliente'])
                 precobb1 = valores['prc_bb_1kg']
@@ -234,6 +237,9 @@ while True:
                 precopto = valores['prc_pto']
                 precoscbb = valores['prc_sc_bb']
                 precoscgv = valores['prc_sc_gv']
+                print(
+                    f'Barbalho: {precobb}\nGoval: {precogv}\nVermelho: {precoverm}\nPreto: {precopto}\nSaco Barb.: {precoscbb}\nSaco Gov.: {precoscgv}')
+                print()
                 qtdBB1Pedido = int(valores['qtd_bb_1kg'])
                 qtdBB2Pedido = int(valores['qtd_bb_2kg'])
                 qtdBB5Pedido = int(valores['qtd_bb_5kg'])
@@ -244,29 +250,11 @@ while True:
                 qtdSCBBPedido = int(valores['qtd_sc_bb'])
                 qtdSCGVPedido = int(valores['qtd_sc_gv'])
                 obsPedido = valores['obs']
-
-
-                date = dataPedido
-                codigo = codigoPedido
-                cliente = clientes.itensArquivo(codigo)
-                nome_cliente = cliente[0]
-                cidade1 = cliente[1]
-                pagamento = cliente[2]
-
-                if valores['nota'] == True:
-                    try:
-                        pagamento.index('Ch')
-                        notaPedido = 'S/N'
-                        janela1.hide()
-                        break
-                    except:
-                        print('Não é permitido enviar boleto sem nota')
-                if valores['nota'] == False:
-                    notaPedido = ''
-                    janela1.hide()
-                    break
+                janela1.hide()
+                break
             except:
                 print('Digite um código válido')
+
         #Função do Botão "Cadastro"aaaa
         if janela == janela1 and evento == 'cadastro':
             janela4 = janelaCadastro()
@@ -310,8 +298,12 @@ while True:
 
     #Programa Principal
 
-
-
+    date = dataPedido
+    codigo = codigoPedido
+    cliente = clientes.itensArquivo(codigo)
+    nome_cliente = cliente[0]
+    cidade1 = cliente[1]
+    pagamento = cliente[2]
     #Cabecalho
     ws['C2'] = f'{nome_cliente}'
     ws['C4'] = f'{cidade1}'
@@ -357,13 +349,13 @@ while True:
     pastapdf = 'PedidosPDF'
 
     if os.path.isdir(pastaxl):  # vemos de este diretorio ja existe
-        None
+        print('Ja existe uma pasta com esse nome!')
     else:
         os.mkdir(pastaxl)  # aqui criamos a pasta caso nao exista
         print('Pasta criada com sucesso!')
 
     if os.path.isdir(pastapdf):  # vemos se este diretorio ja existe
-        None
+        print('Ja existe uma pasta com esse nome!')
     else:
         os.mkdir(pastapdf)  # aqui criamos a pasta caso nao exista
         print('Pasta criada com sucesso!')
@@ -373,36 +365,28 @@ while True:
 
     nome_arquivo = fr'{caminhoXL}\Pedido_{nome_cliente.strip()}'
 
-    try:
-        wb.save(f'{nome_arquivo}.xlsx')
-        print('ARQUIVO XL CRIADO')
-        nome_arquivo_PDF = fr'{caminhoPDF}\Pedido_{nome_cliente.strip()}'
-
-        input_file = fr'{nome_arquivo}.xlsx'
-        # give your file name with valid path
-        output_file = fr'{nome_arquivo_PDF}.pdf'
-        # give valid output file name and path
-        app = client.DispatchEx("Excel.Application")
-        app.Interactive = False
-        app.Visible = False
-        Workbook = app.Workbooks.Open(input_file)
-        try:
-            Workbook.ActiveSheet.ExportAsFixedFormat(0, output_file)
-            print('Arquivo PDF Criado!')
-        except Exception as e:
-            print(
-                "Failed to convert in PDF format.Please confirm environment meets all the requirements  and try again")
-            print(str(e))
-        finally:
-            try:
-                Workbook.Close()
-                app.Exit()
-            except Exception as e:
-                None
-
-    except Exception as e:
-        print(f'Já existe um arquivo com esse nome')
+    wb.save(f'{nome_arquivo}.xlsx')
     #Criar Arquivo PDF
 
+    nome_arquivo_PDF = fr'{caminhoPDF}\Pedido_{nome_cliente.strip()}'
 
-
+    input_file = fr'{nome_arquivo}.xlsx'
+    #give your file name with valid path
+    output_file = fr'{nome_arquivo_PDF}.pdf'
+    #give valid output file name and path
+    app = client.DispatchEx("Excel.Application")
+    app.Interactive = False
+    app.Visible = False
+    Workbook = app.Workbooks.Open(input_file)
+    try:
+        Workbook.ActiveSheet.ExportAsFixedFormat(0, output_file)
+        print('Arquivo PDF Criado!')
+    except Exception as e:
+        print("Failed to convert in PDF format.Please confirm environment meets all the requirements  and try again")
+        print(str(e))
+    finally:
+        try:
+            Workbook.Close()
+            app.Exit()
+        except Exception as e:
+            print(f'Erro {e}')
