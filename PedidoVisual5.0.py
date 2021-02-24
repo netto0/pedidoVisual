@@ -71,14 +71,14 @@ while True:
         layout = [
             [sg.Text('Cadastrar')],
             [sg.Text('Cliente'),sg.Input(key='clienteCadastro')],
-            #[sg.Text('Endereço'), sg.Input(key='endereçoCadastro')],
+            [sg.Text('Endereço'), sg.Input(key='endereçoCadastro')],
             [sg.Text('Cidade'), sg.Input(key='cidadeCadastro')],
-            #[sg.Text('Fone'), sg.Input(key='foneCadastro')],
-            #[sg.Text('CNPJ'), sg.Input(key='cnpjCadastro')],
-            #[sg.Text('Insc. Est.'), sg.Input(key='ieCadastro')],
+            [sg.Text('Fone'), sg.Input(key='foneCadastro')],
+            [sg.Text('CNPJ'), sg.Input(key='cnpjCadastro')],
+            [sg.Text('Insc. Est.'), sg.Input(key='ieCadastro')],
             [sg.Text('Cond. de Pag.'), sg.Input(key='pagCadastro')],
-            #[sg.Text('Email'), sg.Input(key='emailCadastro')],
-            #[sg.Checkbox('S/N', key='nota')],
+            [sg.Text('Email'), sg.Input(key='emailCadastro')],
+            [sg.Checkbox('S/N', key='nota')],
             [sg.Button('Enviar'), sg.Button('Fechar')],
         ]
         return sg.Window('janelaCadastro', layout=layout, finalize=True)
