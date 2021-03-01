@@ -5,6 +5,7 @@ from sys import exit
 from PySimpleGUI import PySimpleGUI as sg
 from datetime import datetime
 import os
+import schedule
 
 #Definir Data Padrão
 data_atual = datetime.today()
@@ -22,7 +23,7 @@ while True:
     def tela_pedido():
         sg.theme('Reddit')
         layout = [
-            [sg.Text('Cód:'), sg.Input(key='codigo_cliente', size=(10, 1)), sg.Checkbox('S/N', key='nota')],
+            [sg.Text('Cód:'), sg.Input(key='codigo_cliente', size=(6, 1)), sg.B('Ver Lista'), sg.Checkbox('S/N', key='nota'), sg.Button('Cadastrar')],
             [sg.Text('Data (Atual por padrão)'), sg.Button('Digitar Data',key='checkbox_data_nao',size=(11,1)), sg.Button('Limpar Data')],
             #[sg.Text('Preços (Atuais por padrão)'), sg.Button('Digitar Preços',key='checkbox_preco_nao'), sg.Button('Limpar Preços')],
             [sg.Text('Quantidades'),sg.Text('Preços'),sg.Text('R$')],
@@ -37,7 +38,7 @@ while True:
             [sg.Text('Sc. Goval     '), sg.Input(f'{int(0)}',key='qtd_sc_gv', size=(10, 1)),sg.Button('+1',key='+scgv'),sg.Button('-1',key='-scgv'),sg.Input(f'{int(precoscgv)}',key='prc_sc_gv', size=(10, 1)),sg.Button('+1',key='+scgvprc'),sg.Button('-1',key='-scgvprc')],
             [sg.Text('Observações'), sg.Input(key='obs', size=(42, 1))],
             [sg.Button('Enviar'), sg.Button('Fechar')],
-            #[sg.Output(size=(30,10))]
+            #[sg.Output(size=(70,10))]
         ]
         return sg.Window('telaPedido',layout=layout,finalize=True)
 
@@ -71,14 +72,14 @@ while True:
         layout = [
             [sg.Text('Cadastrar')],
             [sg.Text('Cliente'),sg.Input(key='clienteCadastro')],
-            #[sg.Text('Endereço'), sg.Input(key='endereçoCadastro')],
+            [sg.Text('Endereço'), sg.Input(key='endereçoCadastro')],
             [sg.Text('Cidade'), sg.Input(key='cidadeCadastro')],
-            #[sg.Text('Fone'), sg.Input(key='foneCadastro')],
-            #[sg.Text('CNPJ'), sg.Input(key='cnpjCadastro')],
-            #[sg.Text('Insc. Est.'), sg.Input(key='ieCadastro')],
+            [sg.Text('Fone'), sg.Input(key='foneCadastro')],
+            [sg.Text('CNPJ'), sg.Input(key='cnpjCadastro')],
+            [sg.Text('Insc. Est.'), sg.Input(key='ieCadastro')],
             [sg.Text('Cond. de Pag.'), sg.Input(key='pagCadastro')],
-            #[sg.Text('Email'), sg.Input(key='emailCadastro')],
-            #[sg.Checkbox('S/N', key='nota')],
+            [sg.Text('Email'), sg.Input(key='emailCadastro')],
+            [sg.Checkbox('S/N', key='nota')],
             [sg.Button('Enviar'), sg.Button('Fechar')],
         ]
         return sg.Window('janelaCadastro', layout=layout, finalize=True)
@@ -123,6 +124,9 @@ while True:
             print(f'Data Definida: {dataPedido}')
             print()
 
+        '''if janela == janela1 and evento == 'Cadastrar':
+            janela1.hide()
+            exec('CadastroVisual.py')'''
         #Definir Função dos botões "+1" e "-1"
         if janela == janela1 and evento == '+bb1':
             atualizarVisorSoma(valores['qtd_bb_1kg'],'qtd_bb_1kg')
@@ -215,6 +219,9 @@ while True:
             atualizarVisorSoma(valores['prc_sc_gv'],'prc_sc_gv')
         if janela == janela1 and evento == '-scgvprc':
             atualizarVisorSub(valores['prc_sc_gv'],'prc_sc_gv')
+
+        if janela == janela1 and evento == 'Ver Lista':
+            clientes.linhasArquivo('cadastrosclientes.txt')
 
         #Abrir Janela de Data
         if janela == janela1 and evento == 'checkbox_data_nao':

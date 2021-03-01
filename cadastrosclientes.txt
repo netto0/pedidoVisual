@@ -1,5 +1,3 @@
-#
-#
 Adriano Braga dos Santos;Carlos Chagas;Bol. 30
 Antônio Carlos Amaral;Carlos Chagas;Bol. 30
 Gilvan Delfino de Oliveira;Carlos Chagas;Bol. 35
