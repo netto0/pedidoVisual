@@ -22,10 +22,11 @@ while True:
     def tela_pedido():
         sg.theme('Reddit')
         layout = [
-            [sg.Text('Cód:'), sg.Input(key='codigo_cliente', size=(6, 1)), sg.B('Ver Lista'), sg.Checkbox('S/N', key='nota'), sg.Button('Cadastrar')],
-            [sg.Text('Data (Atual por padrão)'), sg.Button('Digitar Data',key='checkbox_data_nao',size=(11,1)), sg.Button('Limpar Data')],
-            #[sg.Text('Preços (Atuais por padrão)'), sg.Button('Digitar Preços',key='checkbox_preco_nao'), sg.Button('Limpar Preços')],
-            [sg.Text('Quantidades'),sg.Text('Preços'),sg.Text('R$')],
+            [sg.Text('Cód:'), sg.Input(key='codigo_cliente', size=(6, 1)), sg.Button('OK'), sg.B('Ver Lista'), sg.Button('Cadastrar')],
+            [sg.Button('Digitar Data',key='checkbox_data_nao',size=(11,1)), sg.Button('Limpar Data')],
+            [sg.Text(f'Razão:',key='razaoPedido',size=(40,1)),sg.Text(f'Data: {data_texto}',key='dataPrevia')],
+            [sg.Text(f'Cond. de Pag.:',key='pagPedido',size=(30,1))],
+            [sg.Checkbox('S/N', key='nota'), sg.Text('Quantidades'),sg.Text('Preços'),sg.Text('R$')],
             [sg.Text('Barbalho 1kg'), sg.Input(f'{int(0)}',key='qtd_bb_1kg', size=(10, 1)),sg.Button('+1',key='+bb1'),sg.Button('-1',key='-bb1'),sg.Input(f'{int(precobb)}',key='prc_bb_1kg', size=(10, 1)),sg.Button('+1',key='+bb1prc'),sg.Button('-1',key='-bb1prc')],
             [sg.Text('Barbalho 2kg'), sg.Input(f'{int(0)}',key='qtd_bb_2kg', size=(10, 1)),sg.Button('+1',key='+bb2'),sg.Button('-1',key='-bb2'),sg.Input(f'{int(precobb)}',key='prc_bb_2kg', size=(10, 1)),sg.Button('+1',key='+bb2prc'),sg.Button('-1',key='-bb2prc')],
             [sg.Text('Barbalho 5kg'), sg.Input(f'{int(0)}',key='qtd_bb_5kg', size=(10, 1)),sg.Button('+1',key='+bb5'),sg.Button('-1',key='-bb5'),sg.Input(f'{int(precobb)}',key='prc_bb_5kg', size=(10, 1)),sg.Button('+1',key='+bb5prc'),sg.Button('-1',key='-bb5prc')],
@@ -98,6 +99,18 @@ while True:
             exit()
         if janela == janela1 and evento == sg.WIN_CLOSED:
             exit()
+
+        if janela == janela1 and evento == 'OK':
+            try:
+                codigoPedidoPrevia = int(valores['codigo_cliente'])
+                clientePrevia = clientes.itensArquivo(codigoPedidoPrevia)
+                razao = clientePrevia[0]
+                pagamentoPrevia = clientePrevia[2]
+                janela1.Element('razaoPedido').update(value=f'Razão: {razao}')
+                janela1.Element('pagPedido').update(value=f'Cond. de Pag.: {pagamentoPrevia}')
+            except Exception as e:
+                print('Digite um código válido')
+                print(e)
 
         #Redefinir Data para Padrão
         if janela == janela1 and evento == 'Limpar Data':
@@ -258,8 +271,7 @@ while True:
             janela3.hide()
             janela1.un_hide()
             dataPedido = valores['data_dia']
-            print(f'Data Definida: {dataPedido}')
-            print()
+            janela1.Element('dataPrevia').update(value=f'Data: {dataPedido}')
         # Função do Botão "Voltar"
         if janela == janela3 and evento == 'Voltar':
             janela3.hide()
