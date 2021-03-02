@@ -5,8 +5,7 @@ from sys import exit
 from PySimpleGUI import PySimpleGUI as sg
 from datetime import datetime
 import os
-import schedule
-
+from biblio import janelas
 #Definir Data Padrão
 data_atual = datetime.today()
 data_texto = data_atual.strftime('%d/%m/%y')
@@ -67,7 +66,7 @@ while True:
         return sg.Window('inserirData',layout=layout,finalize=True)
 
 
-    def janelaCadastro():
+    """def janelaCadastro():
         sg.theme('Reddit')
         layout = [
             [sg.Text('Cadastrar')],
@@ -82,7 +81,7 @@ while True:
             [sg.Checkbox('S/N', key='nota')],
             [sg.Button('Enviar'), sg.Button('Fechar')],
         ]
-        return sg.Window('janelaCadastro', layout=layout, finalize=True)
+        return sg.Window('janelaCadastro', layout=layout, finalize=True)"""
 
 
     def atualizarVisorSoma(valor,elemento):
@@ -124,9 +123,9 @@ while True:
             print(f'Data Definida: {dataPedido}')
             print()
 
-        '''if janela == janela1 and evento == 'Cadastrar':
-            janela1.hide()
-            exec('CadastroVisual.py')'''
+        if janela == janela1 and evento == 'Cadastrar':
+            janela4 = janelas.janelaCadastro()
+
         #Definir Função dos botões "+1" e "-1"
         if janela == janela1 and evento == '+bb1':
             atualizarVisorSoma(valores['qtd_bb_1kg'],'qtd_bb_1kg')
@@ -274,10 +273,6 @@ while True:
                     break
             except:
                 print('Digite um código válido')
-        #Função do Botão "Cadastro"aaaa
-        if janela == janela1 and evento == 'cadastro':
-            janela4 = janelaCadastro()
-            janela1.hide()
     #Eventos Janela3
         # Função do Botão "OK"
         if janela == janela3 and evento == 'OK':
@@ -291,22 +286,6 @@ while True:
             janela3.hide()
             janela1.un_hide()
     #Eventos Janela4
-        # Função do Botão "Fechar"
-        if janela == janela4 and evento == 'Fechar':
-            janela4.hide()
-            janela1.un_hide()
-        # Função do Botão "Enviar"
-        if janela == janela4 and evento == 'Enviar':
-            arquivo = 'cadastrosclientes.txt'
-            try:
-                clientes.cadastrar(arquivo, valores['clienteCadastro'], valores['cidadeCadastro'], valores['pagCadastro'])
-                print('Cadastro Concluído')
-            except Exception as e:
-                print(f'Erro {e}')
-            finally:
-                janela4.hide()
-                janela1.un_hide()
-
     #Abrir Bloco de Pedido no Excel
     diretorioexcel = os.getcwd()
     nomebloco = "BLOCOPROJETO.xlsx"
