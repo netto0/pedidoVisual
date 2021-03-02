@@ -66,24 +66,6 @@ while True:
         return sg.Window('inserirData',layout=layout,finalize=True)
 
 
-    """def janelaCadastro():
-        sg.theme('Reddit')
-        layout = [
-            [sg.Text('Cadastrar')],
-            [sg.Text('Cliente'),sg.Input(key='clienteCadastro')],
-            [sg.Text('Endereço'), sg.Input(key='endereçoCadastro')],
-            [sg.Text('Cidade'), sg.Input(key='cidadeCadastro')],
-            [sg.Text('Fone'), sg.Input(key='foneCadastro')],
-            [sg.Text('CNPJ'), sg.Input(key='cnpjCadastro')],
-            [sg.Text('Insc. Est.'), sg.Input(key='ieCadastro')],
-            [sg.Text('Cond. de Pag.'), sg.Input(key='pagCadastro')],
-            [sg.Text('Email'), sg.Input(key='emailCadastro')],
-            [sg.Checkbox('S/N', key='nota')],
-            [sg.Button('Enviar'), sg.Button('Fechar')],
-        ]
-        return sg.Window('janelaCadastro', layout=layout, finalize=True)"""
-
-
     def atualizarVisorSoma(valor,elemento):
         soma = int(valor) + int(1)
         try:
@@ -182,7 +164,6 @@ while True:
         if janela == janela1 and evento == '-gv1':
             atualizarVisorSub(valores['qtd_gv_1kg'],'qtd_gv_1kg')
 
-
         if janela == janela1 and evento == '+gv1prc':
             atualizarVisorSoma(valores['prc_gv_1kg'],'prc_gv_1kg')
         if janela == janela1 and evento == '-gv1prc':
@@ -202,7 +183,6 @@ while True:
             atualizarVisorSoma(valores['qtd_sc_bb'],'qtd_sc_bb')
         if janela == janela1 and evento == '-scbb':
             atualizarVisorSub(valores['qtd_sc_bb'],'qtd_sc_bb')
-
 
         if janela == janela1 and evento == '+scbbprc':
             atualizarVisorSoma(valores['prc_sc_bb'],'prc_sc_bb')
@@ -251,7 +231,6 @@ while True:
                 qtdSCGVPedido = int(valores['qtd_sc_gv'])
                 obsPedido = valores['obs']
 
-
                 date = dataPedido
                 codigo = codigoPedido
                 cliente = clientes.itensArquivo(codigo)
@@ -296,8 +275,6 @@ while True:
 
     #Programa Principal
 
-
-
     #Cabecalho
     ws['C2'] = f'{nome_cliente}'
     ws['C4'] = f'{cidade1}'
@@ -316,6 +293,7 @@ while True:
     qtscbb = ws['A26'] = int(f'{qtdSCBBPedido}')
     qtscgv = ws['A27'] = int(f'{qtdSCGVPedido}')
     obser = ws['H33'] = f'{obsPedido}'
+
     #Preços Unitários
     if qtdBB1Pedido > 0:
         pubb1 = ws['O8'] = int(f'{precobb1}')
@@ -388,7 +366,3 @@ while True:
 
     except Exception as e:
         print(f'Já existe um arquivo com esse nome')
-    #Criar Arquivo PDF
-
-
-
