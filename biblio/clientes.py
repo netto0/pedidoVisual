@@ -1,11 +1,11 @@
-def cadastrar(arq, nome, cidade, pagam):
+def cadastrar(arq, nome, cidade, forma, prazo):
     try:
         a = open(arq, 'at')
     except:
         print('erro ao abrir arquivo')
     else:
         try:
-            a.write(f'{nome};{cidade};{pagam}\n')
+            a.write(f'{nome};{cidade};{forma},{prazo}\n')
         except:
             print('Erro ao adicionar dados')
         else:
@@ -49,6 +49,6 @@ def linhasArquivo(arquivo):
         for linha in arq:
             dado = linha.split(';')
             dado[1] = dado[1].replace('\n', '')
-            print(f'{cont:<3} {dado[0]:<40} {dado[1]:<20} {dado[2]}')
+            print(f'{cont:<3} {dado[0]:<40} {dado[1]:<20} {dado[2]:<10} {dado[3]}')
             cont += 1
 

@@ -9,23 +9,29 @@ from biblio import janelas
 #Definir Data Padrão
 data_atual = datetime.today()
 data_texto = data_atual.strftime('%d/%m/%y')
-dataPedido = data_texto
+
 #Preços Padrão
-precobb = 190
+precobb = 185
 precogv = 175
-precoverm = 205
-precopto = 220
-precoscbb = 365
+precoverm = 0
+precopto = 210
+precoscbb = 360
 precoscgv = 340
 #Definir Layouts das Janelas
 while True:
     def tela_pedido():
+        formaPagamento = ('Ch.','Bol.')
+        prazoPagamento = (
+            'À Vista', '14 dias', '28 dias', '30 dias', '35 dias', '40 dias', '45 dias', '50 dias', '28/35 dias', '30/40 dias', '30/45 dias', '30/60 dias', '35/45 dias',
+            '30/40/50 dias')
+        datas = (data_texto, '')
+
         sg.theme('Reddit')
         layout = [
             [sg.Text('Cód:'), sg.Input(key='codigo_cliente', size=(6, 1)), sg.Button('OK'), sg.B('Ver Lista'), sg.Button('Cadastrar')],
-            [sg.Button('Digitar Data',key='checkbox_data_nao',size=(11,1)), sg.Button('Limpar Data')],
-            [sg.Text(f'Razão:',key='razaoPedido',size=(40,1)),sg.Text(f'Data: {data_texto}',key='dataPrevia')],
-            [sg.Text(f'Cond. de Pag.:',key='pagPedido',size=(30,1))],
+            [sg.Text(f'Data:'), sg.Combo(datas,size=(9,1),key='-DATA-',default_value=datas[0])],
+            [sg.Text(f'Razão:',key='razaoPedido',size=(40,1))],
+            [sg.Text(f'Forma:'),sg.Combo(formaPagamento, key='-FORMA-',size=(5,1)),sg.Text('Prazo:'),sg.Combo(prazoPagamento,key=('-PRAZO-'))],
             [sg.Checkbox('S/N', key='nota'), sg.Text('Quantidades'),sg.Text('Preços'),sg.Text('R$')],
             [sg.Text('Barbalho 1kg'), sg.Input(f'{int(0)}',key='qtd_bb_1kg', size=(10, 1)),sg.Button('+1',key='+bb1'),sg.Button('-1',key='-bb1'),sg.Input(f'{int(precobb)}',key='prc_bb_1kg', size=(10, 1)),sg.Button('+1',key='+bb1prc'),sg.Button('-1',key='-bb1prc')],
             [sg.Text('Barbalho 2kg'), sg.Input(f'{int(0)}',key='qtd_bb_2kg', size=(10, 1)),sg.Button('+1',key='+bb2'),sg.Button('-1',key='-bb2'),sg.Input(f'{int(precobb)}',key='prc_bb_2kg', size=(10, 1)),sg.Button('+1',key='+bb2prc'),sg.Button('-1',key='-bb2prc')],
@@ -42,7 +48,6 @@ while True:
         ]
         return sg.Window('telaPedido',layout=layout,finalize=True)
 
-
     def precos():
         sg.theme('Reddit')
         layout = [
@@ -56,16 +61,6 @@ while True:
             [sg.Button('OK'),sg.Button('VOLTAR')]
         ]
         return sg.Window('inserirPrecos',layout=layout,finalize=True)
-
-
-    def janelaData():
-        sg.theme('Reddit')
-        layout = [
-            [sg.Text('Data [dd/mm/aa]'),sg.Input(key='data_dia')],
-            [sg.Button('OK'),sg.Button('Voltar')]
-        ]
-        return sg.Window('inserirData',layout=layout,finalize=True)
-
 
     def atualizarVisorSoma(valor,elemento):
         soma = int(valor) + int(1)
@@ -100,26 +95,25 @@ while True:
         if janela == janela1 and evento == sg.WIN_CLOSED:
             exit()
 
+        if janela == janela1 and evento == 'Cadastrar':
+            janela1.hide()
+            janela2 = janelas.janelaCadastro()
+
         if janela == janela1 and evento == 'OK':
             try:
                 codigoPedidoPrevia = int(valores['codigo_cliente'])
                 clientePrevia = clientes.itensArquivo(codigoPedidoPrevia)
                 razao = clientePrevia[0]
-                pagamentoPrevia = clientePrevia[2]
+                formaPrevia = clientePrevia[2]
+                prazoPrevia = clientePrevia[3]
                 janela1.Element('razaoPedido').update(value=f'Razão: {razao}')
-                janela1.Element('pagPedido').update(value=f'Cond. de Pag.: {pagamentoPrevia}')
+                janela1.Element('-PRAZO-').update(value=f'{prazoPrevia}')
+                janela1.Element('-FORMA-').update(value=f'{formaPrevia}')
             except Exception as e:
                 print('Digite um código válido')
                 print(e)
 
         #Redefinir Data para Padrão
-        if janela == janela1 and evento == 'Limpar Data':
-            dataPedido = data_texto
-            print(f'Data Definida: {dataPedido}')
-            print()
-
-        if janela == janela1 and evento == 'Cadastrar':
-            janela4 = janelas.janelaCadastro()
 
         #Definir Função dos botões "+1" e "-1"
         if janela == janela1 and evento == '+bb1':
@@ -214,11 +208,6 @@ while True:
 
         if janela == janela1 and evento == 'Ver Lista':
             clientes.linhasArquivo('cadastrosclientes.txt')
-
-        #Abrir Janela de Data
-        if janela == janela1 and evento == 'checkbox_data_nao':
-            janela3 = janelaData()
-            janela1.hide()
         #Definir Função do Botão Enviar
         if janela == janela1 and evento == 'Enviar':
 
@@ -244,16 +233,19 @@ while True:
                 qtdSCGVPedido = int(valores['qtd_sc_gv'])
                 obsPedido = valores['obs']
 
-                date = dataPedido
+                date = valores['-DATA-']
                 codigo = codigoPedido
                 cliente = clientes.itensArquivo(codigo)
                 nome_cliente = cliente[0]
                 cidade1 = cliente[1]
-                pagamento = cliente[2]
+
+                forma = valores['-FORMA-']
+                prazo = valores['-PRAZO-']
+                pagamento = f'{forma} {prazo}'
 
                 if valores['nota'] == True:
                     try:
-                        pagamento.index('Ch')
+                        forma.index('Ch')
                         notaPedido = 'S/N'
                         janela1.hide()
                         break
@@ -263,19 +255,10 @@ while True:
                     notaPedido = ''
                     janela1.hide()
                     break
-            except:
+            except Exception as e:
                 print('Digite um código válido')
-    #Eventos Janela3
-        # Função do Botão "OK"
-        if janela == janela3 and evento == 'OK':
-            janela3.hide()
-            janela1.un_hide()
-            dataPedido = valores['data_dia']
-            janela1.Element('dataPrevia').update(value=f'Data: {dataPedido}')
-        # Função do Botão "Voltar"
-        if janela == janela3 and evento == 'Voltar':
-            janela3.hide()
-            janela1.un_hide()
+                print(TypeError,e)
+
     #Eventos Janela4
     #Abrir Bloco de Pedido no Excel
     diretorioexcel = os.getcwd()

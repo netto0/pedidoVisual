@@ -1,68 +1,70 @@
-Adriano Braga dos Santos;Carlos Chagas;Bol. 30
-Antônio Carlos Amaral;Carlos Chagas;Bol. 30
-Gilvan Delfino de Oliveira;Carlos Chagas;Bol. 35
-Ilma Delfino de Oliveira;Carlos Chagas;Bol. 35
-João Ferreira dos Santos;Carlos Chagas;Bol. 30
-José dos Reis Silva;Carlos Chagas;Ch. 30
-Lindraci Mendes Damascena;Carlos Chagas;Bol. 35
-Renato Moura Trindade;Carlos Chagas;Ch. 35
-Rodrigues & Pinheiro Ltda;Carlos Chagas;Ch. 35
-Santos & Souza Refeições Ltda;Carlos Chagas;Bol. 35
-Pérola do Mucuri Sup. Dist. Alim.;Carlos Chagas;Ch. 30/40/50
-Terezinha Joaquina Silva & Cia;Carlos Chagas;Bol. 30
-Hélia Lacerda Machado;Carlos Chagas;Bol. 28
-M. dos Santos Pereira & Cia Ltda;Ibirapuã;Bol. 30/40/50
-Maria Cleuza Costa & Cia Ltda;Ibirapuã;Bol. 30/40/50
-Adão Afonso da Silva;Itanhém;Bol. 28/35
-Prado & Prado Com. de Alim.;Itanhém;Ch. 30/40/50
-Débora Gil Alves Silva;Itanhém;Ch. 30
-Eunilto Maia Santos;Itanhém;Bol. 30/40/50
-Lidiomar Chaves Resende;Itanhém;Ch. 30/45
-Lucilene Dias Barbosa;Itanhém;Ch. 30
-Reinaldo Ferreira da Silva;Itanhém;Ch. 35
-Roberlan Medeiros;Itanhém;Ch. 30
-Manoelton Santos de Araújo;Itanhém;Ch. 30
-Supermercado Brás Ltda;Itanhém;Ch. 30
-Valdívio Leles dos Santos;Itanhém;Ch. 30/40
-Jaílson de Jesus;Itupeva;Ch. 14
-Jaílton Ferreira dos Santos;Itupeva;Bol. 35
-José Clemente de Jesus;Lajedão;Ch. 30/40/50
-Roberto Gomes da Silva;Lajedão;Ch. 30
-Alas da Silva Santos;Medeiros Neto;Ch. 30
-Claudio Souza Cortes;Medeiros Neto;Ch. 35
-Edenaldo Santana Souza;Medeiros Neto;Ch. 30
-Ismar Costa Mendes Lima;Medeiros Neto;Bol. 30
-Jorvane Antônio Lima;Medeiros Neto;Ch. 35/45
-José Afonso Faria;Medeiros Neto;Bol. 30
-Josenélia Farias Lucas;Medeiros Neto;Ch. 30
-Maria Emília Silva de Souza;Medeiros Neto;Bol. 35
-Márcio Simão da Silva;Medeiros Neto;Ch. 50
-Mercearia Mineira Ltda;Medeiros Neto;Ch. 30
-Núbia C. B. Leite;Medeiros Neto;Bol. 28/35
-Oliveira & Leite Ltda;Medeiros Neto;Ch. 30
-Sílvio Cláudio Com. Prod. Alim.;Medeiros Neto;Ch. 30
-Valdomiro Oliveira;Medeiros Neto;Ch. 30
-Adão Brandão dos Santos;Nanuque;Ch. 30
-Adilson Ramos Pereira;Nanuque;Ch. 30
-Afrodízio Tenencio de Brito;Nanuque;Bol. 30
-Da Hora e Soares Ltda;Nanuque;Ch. 30/40/50
-Fábio de Souza Bom Jardim;Nanuque;Bol. 30
-João Souza dos Santos;Nanuque;À Vista
-Raquel Pereira Mota;Nanuque;Bol. 30
-Laís Lima Brito;Nanuque;À Vista
-Maria da Glória de Jesus Viana;São Jorge;Bol. 35
-Ademir Galdino;Serra dos Aimorés;Bol. 30
-Davirlei de Jesus Costa;Serra dos Aimorés;Bol. 30
-Detrez Azevedo Com. Prod. Alim.;Serra dos Aimorés;Bol. 30
-Edgard Rocha Santos;Serra dos Aimorés;Bol. 30
-Eric Melo de Oliveira;Serra dos Aimorés;Bol. 35
-Hélcio Ramos Sobral;Serra dos Aimorés;Ch. 30
-Janilson Soares Araújo;Serra dos Aimorés;À Vista
-José Roberto Dias do Amaral;Serra dos Aimorés;Ch. 30
-Valdirene Bremer Ramalho;Serra dos Aimorés;Bol. 35
-Milton Alves de Almeida;Serra dos Aimorés;Bol. 28
-Zilberto Freitas Meireles;Serra dos Aimorés;Bol. 35
-Fabiano Folgado;Serra dos Aimorés;Bol. 35
-Rosilene L. Espíndola;Serra dos Aimorés;Bol. 28
-Aline Almeida Lacerda;Vereda;Ch. 45
-Valdemir Pereira Santos;Vereda;Ch. 30/60
+Adriano Braga dos Santos;Carlos Chagas;Bol.;30
+Antônio Carlos Amaral;Carlos Chagas;Bol.;30
+Gilvan Delfino de Oliveira;Carlos Chagas;Bol.;35
+Ilma Delfino de Oliveira;Carlos Chagas;Ch.;35
+João Ferreira dos Santos;Carlos Chagas;Bol.;30
+José dos Reis Silva;Carlos Chagas;Ch.;30
+Lindraci Mendes Damascena;Carlos Chagas;Bol.;35
+Renato Moura Trindade;Carlos Chagas;Ch.;35
+Rodrigues & Pinheiro Ltda;Carlos Chagas;Ch.;35
+Santos & Souza Refeições Ltda;Carlos Chagas;Bol.;35
+Pérola do Mucuri Sup. Dist. Alim.;Carlos Chagas;Ch.;30/40/50
+Terezinha Joaquina Silva & Cia;Carlos Chagas;Bol.;28/35
+Hélia Lacerda Machado;Carlos Chagas;Bol.;28
+M. dos Santos Pereira & Cia Ltda;Ibirapuã;Bol.;30/40/50
+Maria Cleuza Costa & Cia Ltda;Ibirapuã;Bol.;30/40/50
+Adão Afonso da Silva;Itanhém;Bol.;28/35
+Prado & Prado Com. de Alim.;Itanhém;Ch.;30/40/50
+Débora Gil Alves Silva;Itanhém;Ch.;30
+Eunilto Maia Santos;Itanhém;Bol.;30/40/50
+Lidiomar Chaves Resende;Itanhém;Ch.;30/45
+Lucilene Dias Barbosa;Itanhém;Ch.;30
+Reinaldo Ferreira da Silva;Itanhém;Ch.;35
+Roberlan Medeiros;Itanhém;Ch.;30
+Manoelton Santos de Araújo;Itanhém;Ch.;30
+Supermercado Brás Ltda;Itanhém;Ch.;30
+Valdívio Leles dos Santos;Itanhém;Ch.;30/40
+Jaílson de Jesus;Itupeva;Ch.;14
+Jaílton Ferreira dos Santos;Itupeva;Bol.;35
+José Clemente de Jesus;Lajedão;Ch.;30/40/50
+Roberto Gomes da Silva;Lajedão;Ch.;30
+Alas da Silva Santos;Medeiros Neto;Ch.;30
+Claudio Souza Cortes;Medeiros Neto;Ch.;35
+Edenaldo Santana Souza;Medeiros Neto;Ch.;30
+Ismar Costa Mendes Lima;Medeiros Neto;Bol.;30
+Jorvane Antônio Lima;Medeiros Neto;Ch.;35/45
+José Afonso Faria;Medeiros Neto;Bol.;30
+Josenélia Farias Lucas;Medeiros Neto;Ch.;30
+Maria Emília Silva de Souza;Medeiros Neto;Bol.;35
+Márcio Simão da Silva;Medeiros Neto;Ch.;50
+Mercearia Mineira Ltda;Medeiros Neto;Ch.;30
+Núbia C. B. Leite;Medeiros Neto;Bol.;28/35
+Oliveira & Leite Ltda;Medeiros Neto;Ch.;30
+Sílvio Cláudio Com. Prod. Alim.;Medeiros Neto;Ch.;30
+Valdomiro Oliveira;Medeiros Neto;Ch.;30
+Adão Brandão dos Santos;Nanuque;Ch.;30
+Adilson Ramos Pereira;Nanuque;Ch.;30
+Afrodízio Tenencio de Brito;Nanuque;Bol.;30
+Da Hora e Soares Ltda;Nanuque;Ch.;30/40/50
+Fábio de Souza Bom Jardim;Nanuque;Bol.;30
+João Souza dos Santos;Nanuque;À Vista;
+Raquel Pereira Mota;Nanuque;Bol.;30
+Laís Lima Brito;Nanuque;À Vista;
+Maria da Glória de Jesus Viana;São Jorge;Bol.;35
+Ademir Galdino;Serra dos Aimorés;Bol.;30
+Davirlei de Jesus Costa;Serra dos Aimorés;Bol.;30
+Detrez Azevedo Com. Prod. Alim.;Serra dos Aimorés;Bol.;30
+Edgard Rocha Santos;Serra dos Aimorés;Bol.;30
+Eric Melo de Oliveira;Serra dos Aimorés;Bol.;35
+Hélcio Ramos Sobral;Serra dos Aimorés;Ch.;30
+Janilson Soares Araújo;Serra dos Aimorés;À Vista;
+José Roberto Dias do Amaral;Serra dos Aimorés;Ch.;30
+Valdirene Bremer Ramalho;Serra dos Aimorés;Bol.;35
+Milton Alves de Almeida;Serra dos Aimorés;Bol.;28
+Zilberto Freitas Meireles;Serra dos Aimorés;Bol.;35
+Fabiano Folgado;Serra dos Aimorés;Bol.;35
+Rosilene L. Espíndola;Serra dos Aimorés;Bol.;28
+Aline Almeida Lacerda;Vereda;Ch.;45
+Valdemir Pereira Santos;Vereda;Ch.;30/60
+ffgddfgfgdgd;gdfgd;Bol.,À Vista
+oiuouio;iouiou;Bol.,14

@@ -9,8 +9,6 @@ def janelaCadastro():
 
     data_atual = datetime.today()
     data_texto = data_atual.strftime('%d/%m/%y')
-    dataPedido = data_texto
-    date = data_texto
 
     precobb = 190
     precogv = 175
@@ -19,6 +17,20 @@ def janelaCadastro():
     precoscbb = 365
     precoscgv = 340
 
+    def janelaData():
+        sg.theme('Reddit')
+        layout = [
+            [sg.Text('Data [dd/mm/aa]'),sg.Input(key='data_dia')],
+            [sg.Button('OK'),sg.Button('Voltar')]
+        ]
+        return sg.Window('inserirData',layout=layout,finalize=True)
+
+    prazoPagamento = (
+        'À Vista', '14', '28', '30', '35', '40', '45', '50', '28/35',
+        '30/40', '30/45', '30/60', '35/45',
+        '30/40/50')
+    formaPagamento = ('Ch.', 'Bol.')
+    datas = (data_texto,'')
     sg.theme('Reddit')
     layout = [
         [sg.Text('Cadastrar')],
@@ -28,8 +40,10 @@ def janelaCadastro():
         [sg.Text('Fone'), sg.Input(key='foneCadastro')],
         [sg.Text('CNPJ'), sg.Input(key='cnpjCadastro')],
         [sg.Text('Insc. Est.'), sg.Input(key='ieCadastro')],
-        [sg.Text('Cond. de Pag.'), sg.Input(key='pagCadastro')],
+        [sg.Text('Forma Pag.'), sg.Combo(formaPagamento, key='formaPagCadastro')],
+        [sg.Text('Prazo'), sg.Combo(prazoPagamento,key='prazoCadastro')],
         [sg.Text('Email'), sg.Input(key='emailCadastro')],
+        [sg.Text(f'Data:'), sg.Combo(datas,size=(9,1),key='-DATA-',default_value=datas[0])],
         [sg.Checkbox('S/N', key='nota'), sg.Button('Digitar Data'), sg.Button('Limpar Data')],
         [sg.Text('Quantidades'), sg.Text('Preços'), sg.Text('R$')],
         [sg.Text('Barbalho 1kg'), sg.Input(f'{int(0)}', key='qtd_bb_1kg', size=(10, 1)),
@@ -189,20 +203,25 @@ def janelaCadastro():
 
         if evento == 'Enviar':
             if valores['clienteCadastro'] and valores['endereçoCadastro'] and valores['cidadeCadastro'] and valores[
-                'foneCadastro'] and valores['cnpjCadastro'] and valores['ieCadastro'] and valores['pagCadastro'] and \
-                    valores['emailCadastro'] != '':
+                'foneCadastro'] and valores['cnpjCadastro'] and valores['ieCadastro'] and valores['formaPagCadastro'] and \
+                    valores['emailCadastro'] and valores['prazoCadastro'] != '':
                 # cabeçalho
                 try:
                     nome_cliente = valores['clienteCadastro']
-                    data = date
                     endereco = valores['endereçoCadastro']
                     cidade = valores['cidadeCadastro']
                     fone = valores['foneCadastro']
                     cnpj = valores['cnpjCadastro']
                     ie = valores['ieCadastro']
-                    pag = valores['pagCadastro']
+                    formaPag = valores['formaPagCadastro']
+                    prazo = valores['prazoCadastro']
                     mail = valores['emailCadastro']
-
+                    date = valores['-DATA-']
+                    try:
+                        prazo.index('Vista')
+                        pag = f'{prazo}'
+                    except:
+                        pag = f'{formaPag} {prazo}'
                     # preços
                     precobb1 = valores['prc_bb_1kg']
                     precobb2 = valores['prc_bb_2kg']
@@ -227,7 +246,7 @@ def janelaCadastro():
                     obsPedido = valores['obs']
                     if valores['nota'] == True:
                         try:
-                            pag.index('Ch')
+                            formaPag.index('Ch')
                             notaPedido = 'S/N'
                             break
                         except:
@@ -345,5 +364,6 @@ def janelaCadastro():
         print(f'Já existe um arquivo com esse nome')
 
     arquivo = 'cadastrosclientes.txt'
-    clientes.cadastrar(arquivo, nome_cliente, cidade, pag)
+    clientes.cadastrar(arquivo, nome_cliente, cidade, formaPag, prazo)
     janela.hide()
+

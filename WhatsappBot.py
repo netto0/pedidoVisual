@@ -97,7 +97,7 @@ for contato in contatos:
     msg = f'Bom dia {apelidos[contador]}, você vai precisar de feijão pra semana? Está R$ {precobb} o barbalho e R$ {precogv} o goval.'
     buscar_contato(contato)
     # Enviar mensagem
-    enviar_mensagem(msg)
+    #enviar_mensagem(msg)
     contador += 1
 
 # campo de pesquisa : copyable-text selectable-text
