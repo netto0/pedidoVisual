@@ -107,7 +107,7 @@ while True:
                 formaPrevia = clientePrevia[2]
                 prazoPrevia = clientePrevia[3]
                 janela1.Element('razaoPedido').update(value=f'Razão: {razao}')
-                janela1.Element('-PRAZO-').update(value=f'{prazoPrevia}')
+                janela1.Element('-PRAZO-').update(value=f'{prazoPrevia} dias')
                 janela1.Element('-FORMA-').update(value=f'{formaPrevia}')
             except Exception as e:
                 print('Digite um código válido')
