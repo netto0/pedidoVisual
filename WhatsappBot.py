@@ -24,10 +24,10 @@ def testar(funcao):
 
 
 # Definir contatos
-contatos = ['Alas Medeiros Neto', 'Antônio Pena (Tabela1)', 'Gilvan Carlos Chagas', 'Bena Damasceno', 'Renato (Tabela 2)', 'Silvana Dainner (Tabela1)', 'Keila Pérola', 'Terezinha', 'Robinson (Tabela1)', 'Ailton Itanhém', 'Débora (Zé Baiano) Itanhém', 'Neguinho Itanhém', 'Lidão Itanhem', 'Celso Itanhém', 'Reinaldo Itanhém', 'Rodomarck', 'Manoelton Itanhém (Semirames)', 'Aldo Itanhém', 'Jailson Itupeva', 'Itupeva - Jaílton', 'Roberto Lajedão', 'Ildeu Medeiros Neto', 'Núbia Medeiros Neto', 'Silvio Medeiros Neto', 'Tiago Pardim Medeiros Neto', 'Douglas (Tabela2)', 'Da Hora (Tabela2)', 'Silvani', 'Raquel (Tabela2)', 'Laiz Cunhada Silvani', 'André - São Jorge', 'Serra dos Aimorés Ademir Galdino', 'Davirley (Tabela2)', 'Janilson (Tabela2)', 'Roberto - Tânia (Serra)', 'Dilson Gonzaga (Tabela2)', 'Railda', 'Fabiano Serra(Tabela2)', 'Rosilene (Tabela2)', 'Aline Vereda']
-apelidos = ['Alas', 'Antônio', 'Gilvan', 'Bena', 'Renato', 'Silvana', 'Keila', 'Terezinha', 'Robson', 'Aílton', 'Kinho', 'Neguinho', 'Lidão', 'Celso', 'Reinaldo', 'Rodomarck', 'Manoelton', 'Aldo', 'Jaílson', 'Jaílton', 'Roberto', 'Ildeu', 'Núbia', 'Sílvio', 'Tiago', 'Douglas', 'Da Hora', 'Silvani', 'Raquel', 'Laís', 'André', 'Ademir', 'Davirlei', 'Janilson', 'Roberto', 'Dilson', 'Railda', 'Fabiano', 'Rosilene', 'Aline']
-#contatos = ['Lis', 'WppAir☁']
-#apelidos = ['Rodrigues', 'Grupo']
+#contatos = ['Alas Medeiros Neto', 'Antônio Pena (Tabela1)', 'Gilvan Carlos Chagas', 'Bena Damasceno', 'Renato (Tabela 2)', 'Silvana Dainner (Tabela1)', 'Keila Pérola', 'Terezinha', 'Robinson (Tabela1)', 'Ailton Itanhém', 'Débora (Zé Baiano) Itanhém', 'Neguinho Itanhém', 'Lidão Itanhem', 'Celso Itanhém', 'Reinaldo Itanhém', 'Rodomarck', 'Manoelton Itanhém (Semirames)', 'Aldo Itanhém', 'Jailson Itupeva', 'Itupeva - Jaílton', 'Roberto Lajedão', 'Ildeu Medeiros Neto', 'Núbia Medeiros Neto', 'Silvio Medeiros Neto', 'Tiago Pardim Medeiros Neto', 'Douglas (Tabela2)', 'Da Hora (Tabela2)', 'Silvani', 'Raquel (Tabela2)', 'Laiz Cunhada Silvani', 'André - São Jorge', 'Serra dos Aimorés Ademir Galdino', 'Davirley (Tabela2)', 'Janilson (Tabela2)', 'Roberto - Tânia (Serra)', 'Dilson Gonzaga (Tabela2)', 'Railda', 'Fabiano Serra(Tabela2)', 'Rosilene (Tabela2)', 'Aline Vereda']
+#apelidos = ['Alas', 'Antônio', 'Gilvan', 'Bena', 'Renato', 'Silvana', 'Keila', 'Terezinha', 'Robson', 'Aílton', 'Kinho', 'Neguinho', 'Lidão', 'Celso', 'Reinaldo', 'Rodomarck', 'Manoelton', 'Aldo', 'Jaílson', 'Jaílton', 'Roberto', 'Ildeu', 'Núbia', 'Sílvio', 'Tiago', 'Douglas', 'Da Hora', 'Silvani', 'Raquel', 'Laís', 'André', 'Ademir', 'Davirlei', 'Janilson', 'Roberto', 'Dilson', 'Railda', 'Fabiano', 'Rosilene', 'Aline']
+contatos = ['Lis', 'WppAir☁']
+apelidos = ['Rodrigues', 'Grupo']
 
 nao_enviar = []
 
@@ -50,18 +50,17 @@ while True:
         print(f'{nm} adicionado à lista de exclusão. ')
     except:
         print(f'O contato "{nm}" não está na lista principal. ')
-    while True:
-        try:
-            ask = str(input('Mais algum? [S/N]: ')).strip().upper()[0]
-            if ask not in ('SN'):
-                print('ERRO! Digite uma resposta válida!')
-            elif ask in ('N'):
-                print(nao_enviar)
-                break
-            elif ask in ('S'):
-                break
-        except:
+    try:
+        ask = str(input('Mais algum? [S/N]: ')).strip().upper()[0]
+        if ask not in ('SN'):
             print('ERRO! Digite uma resposta válida!')
+        elif ask in ('N'):
+            print(nao_enviar)
+            break
+        elif ask in ('S'):
+            continue
+    except:
+        print('ERRO! Digite uma resposta válida!')
     while True:
         try:
             cont = str(input('Esses contatos serão exluídos da lista, continuar? [S/N]: ')).strip().upper()[0]
