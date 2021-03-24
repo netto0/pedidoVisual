@@ -1,26 +1,16 @@
-import PySimpleGUI as sg
+import time
+contatos = ['Antônio Pena (Tabela1)', 'Gilvan Carlos Chagas', 'Ilma Carlos Chagas', 'Bena Damasceno', 'Renato (Tabela 2)',
+             'Silvana Dainner (Tabela1)', 'Keila Pérola', 'Terezinha', 'Robinson (Tabela1)', 'Ailton Itanhém', 'Débora (Zé Baiano) Itanhém',
+             'Neguinho Itanhém', 'Lidão Itanhem', 'Celso Itanhém', 'Reinaldo Itanhém', 'Rodomarck', 'Manoelton Itanhém (Semirames)',
+             'Aldo Itanhém', 'Jailson Itupeva', 'Itupeva - Jaílton', 'Roberto Lajedão', 'Alas Medeiros Neto', 'Cal (Mercadinho Barão)', 'Edmo Medeiros Neto',
+             'Jorvane Antônio Lima Medeiros Neto', 'Nélia (Panela Da Terra)', 'Ildeu Medeiros Neto', 'Núbia Medeiros Neto',
+             'Silvio Medeiros Neto', 'Tiago Pardim Medeiros Neto', 'Douglas (Tabela2)', 'Da Hora (Tabela2)', 'Silvani', 'Raquel (Tabela2)',
+             'Laiz Cunhada Silvani', 'André - São Jorge', 'Serra dos Aimorés Ademir Galdino', 'Davirley (Tabela2)', 'Janilson (Tabela2)',
+            'Roberto - Tânia (Serra)', 'Dilson Gonzaga (Tabela2)', 'Railda', 'Fabiano Serra(Tabela2)', 'Rosilene (Tabela2)', 'Aline Vereda']
 
-categoria = ['Celular', 'Bateria', 'Carregador']
-marca = ['Iphone', 'Motorola', 'LG']
-cor = ['Branco', 'Verde', 'Preto']
-fonte = 20
 
-layout = [[sg.Text('Código', font=fonte), sg.Input(key='-COD-', font=fonte, size=(20, 1))],
-          [sg.Text('Unidade', font=fonte), sg.InputText(key='-UNID-', font=fonte, size=(10, 1))],
-          [sg.Text('Nome', font=fonte), sg.Input(key='-NOME-', size=(30, 1))],
-          [sg.Text('Categoria', font=fonte), sg.Combo(categoria, font=fonte,default_value=categoria[0], key='-CATEG-', size=(30, 1))],
-          [sg.Text('Marca', font=fonte), sg.Combo(marca, font=fonte, key='-MARCA-')],
-          [sg.Text('Cor/Estampa', font=fonte), sg.Combo(cor, font=fonte, key='-COR-')],
-          [sg.Text('')],
-          [sg.Button('Cadastrar', font=fonte), sg.Button('Cancelar', font=fonte)]]
 
-window = sg.Window('CADASTRO DE PRODUTOS', layout, size=(700, 300))
-
-while True:
-    event, values = window.read()
-    if event in (sg.WIN_CLOSED, 'Cancelar'):
-        break
-    if event == 'Cadastrar':
-        window['-NOME-'].update(window['-CATEG-'])
-
-window.close()
+apelidos = ['Antônio', 'Gilvan', 'Ilma', 'Bena', 'Renato', 'Silvana', 'Keila', 'Terezinha', 'Robson', 'Aílton', 'Kinho',
+            'Neguinho', 'Lidão', 'Celso', 'Reinaldo', 'Rodomarck', 'Manoelton', 'Aldo', 'Jaílson', 'Jaílton', 'Roberto', 'Alas',
+            'Kau', 'Edmo', 'Jorvane', 'Nélia', 'Ildeu', 'Núbia', 'Sílvio', 'Tiago', 'Douglas', 'Da Hora', 'Silvani', 'Raquel', 'Laís', 'André', 'Ademir',
+            'Davirlei', 'Janilson', 'Roberto', 'Dilson', 'Railda', 'Fabiano', 'Rosilene', 'Aline']
