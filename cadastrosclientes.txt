@@ -14,7 +14,7 @@ Hélia Lacerda Machado;Carlos Chagas;Bol.;28
 M. dos Santos Pereira & Cia Ltda;Ibirapuã;Bol.;30/40/50
 Maria Cleuza Costa & Cia Ltda;Ibirapuã;Bol.;30/40/50
 Adão Afonso da Silva;Itanhém;Bol.;28/35
-Prado & Prado Com. de Alim.;Itanhém;Ch.;30/40/50
+Prado & Prado Com. de Alim.;Itanhém;Ch.;45
 Débora Gil Alves Silva;Itanhém;Ch.;30
 Eunilto Maia Santos;Itanhém;Bol.;30/40/50
 Lidiomar Chaves Resende;Itanhém;Ch.;30/45
@@ -32,7 +32,7 @@ Alas da Silva Santos;Medeiros Neto;Ch.;30
 Claudio Souza Cortes;Medeiros Neto;Ch.;35
 Edenaldo Santana Souza;Medeiros Neto;Ch.;30
 Ismar Costa Mendes Lima;Medeiros Neto;Bol.;30
-Jorvane Antônio Lima;Medeiros Neto;Ch.;35/45
+Jorvane Antônio Lima;Medeiros Neto;Ch.;28/35
 José Afonso Faria;Medeiros Neto;Bol.;30
 Josenélia Farias Lucas;Medeiros Neto;Ch.;30
 Maria Emília Silva de Souza;Medeiros Neto;Bol.;35
@@ -62,7 +62,7 @@ José Roberto Dias do Amaral;Serra dos Aimorés;Ch.;30
 Valdirene Bremer Ramalho;Serra dos Aimorés;Bol.;35
 Milton Alves de Almeida;Serra dos Aimorés;Bol.;28
 Zilberto Freitas Meireles;Serra dos Aimorés;Bol.;35
-Fabiano Folgado;Serra dos Aimorés;Bol.;35
+Fabiano Folgado;Serra dos Aimorés;Ch.;35
 Rosilene L. Espíndola;Serra dos Aimorés;Bol.;28
 Aline Almeida Lacerda;Vereda;Ch.;45
 Valdemir Pereira Santos;Vereda;Ch.;30/60

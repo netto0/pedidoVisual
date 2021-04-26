@@ -11,7 +11,7 @@ def enviar_mensagem(msg):
     campo_mensagem[1].click()
     time.sleep(3)
     campo_mensagem[1].send_keys(msg)
-    #campo_mensagem[1].send_keys(Keys.ENTER)
+    campo_mensagem[1].send_keys(Keys.ENTER)
 
 
 def testar(funcao):
@@ -30,11 +30,11 @@ contatos = ['Antônio Pena (Tabela1)', 'Gilvan Carlos Chagas', 'Ilma Carlos Chag
              'Aldo Itanhém', 'Jailson Itupeva', 'Itupeva - Jaílton', 'Roberto Lajedão', 'Alas Medeiros Neto', 'Cal (Mercadinho Barão)', 'Edmo Medeiros Neto',
              'Jorvane Antônio Lima Medeiros Neto', 'Nélia (Panela Da Terra)', 'Ildeu Medeiros Neto', 'Núbia Medeiros Neto',
              'Silvio Medeiros Neto', 'Tiago Pardim Medeiros Neto', 'Douglas (Tabela2)', 'Da Hora (Tabela2)', 'Silvani', 'Raquel (Tabela2)',
-             'Laiz Cunhada Silvani', 'André - São Jorge', 'Serra dos Aimorés Ademir Galdino', 'Davirley (Tabela2)', 'Janilson (Tabela2)',
+             'Laiz Cunhada Silvani', 'Serra dos Aimorés Ademir Galdino', 'Davirley (Tabela2)', 'Janilson (Tabela2)',
             'Roberto - Tânia (Serra)', 'Dilson Gonzaga (Tabela2)', 'Railda', 'Fabiano Serra(Tabela2)', 'Rosilene (Tabela2)', 'Aline Vereda']
 apelidos = ['Antônio', 'Gilvan', 'Ilma', 'Bena', 'Renato', 'Silvana', 'Keila', 'Terezinha', 'Robson', 'Aílton', 'Kinho',
             'Neguinho', 'Lidão', 'Celso', 'Reinaldo', 'Rodomarck', 'Manoelton', 'Aldo', 'Jaílson', 'Jaílton', 'Roberto', 'Alas',
-            'Kau', 'Edmo', 'Jorvane', 'Nélia', 'Ildeu', 'Núbia', 'Sílvio', 'Tiago', 'Douglas', 'Da Hora', 'Silvani', 'Raquel', 'Laís', 'André', 'Ademir',
+            'Kau', 'Edmo', 'Jorvane', 'Nélia', 'Ildeu', 'Núbia', 'Sílvio', 'Tiago', 'Douglas', 'Da Hora', 'Silvani', 'Raquel', 'Laís', 'Ademir',
             'Davirlei', 'Janilson', 'Roberto', 'Dilson', 'Railda', 'Fabiano', 'Rosilene', 'Aline']
 #contatos = ['Lis', 'WppAir☁']
 #apelidos = ['Rodrigues', 'Grupo']

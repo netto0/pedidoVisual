@@ -36,7 +36,7 @@ caminho = f'{os.getcwd()}\{"PedidosXl"}'
 arquivos = []
 for item in os.listdir(caminho):
     arquivos.append(item)
-cont = 1
+cont = 0
 for i in arquivos:
     try:
         arquivo = f'{os.getcwd()}\PedidosXl\{i}'
@@ -50,10 +50,10 @@ for i in arquivos:
         if ws['A10'].value != None:qtd_bb5 = ws['A10'].value
         else:
             qtd_bb5 = 0
-        if ws['A11'].value != None:qtd_pto = ws['A11'].value
+        if ws['A11'].value != None:qtd_pto = ws['A12'].value
         else:
             qtd_pto = 0
-        if ws['A12'].value != None:qtd_verm = ws['A12'].value
+        if ws['A12'].value != None:qtd_verm = ws['A11'].value
         else:
             qtd_verm = 0
         if ws['A17'].value != None:qtd_gv1 = ws['A17'].value
@@ -118,6 +118,7 @@ for i in arquivos:
         soma_sc += int(qtd_sc_far_gv)
         total_far_sc += int(qtd_sc_far_bb)
 
+        cont += 1
 
     except Exception as e:
         print(e)
@@ -137,7 +138,8 @@ valor_far_gv = total_far_gv * precoFARGV
 valor_far_sc = total_far_sc * precoFARSC
 valor_Total = valor_bb + valor_gv + valor_pto + valor_verm + valor_saco_bb + valor_saco_gv + valor_far_bb + valor_far_gv + valor_far_sc
 
-print(f'\n'
+print(f'Pedidos: {cont}'
+      f'\n'
       f'Quantidade Barbalho: {qtd_bb_fd}\n'
       f'Quantidade Goval: {qtd_gv_fd}\n'
       f'Quantidade Preto: {total_pto}\n'

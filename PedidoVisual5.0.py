@@ -11,12 +11,12 @@ data_atual = datetime.today()
 data_texto = data_atual.strftime('%d/%m/%y')
 
 #Preços Padrão
-precobb = 185
-precogv = 175
-precoverm = 0
-precopto = 210
-precoscbb = 360
-precoscgv = 340
+precobb = 175
+precogv = 160
+precoverm = 215
+precopto = 207
+precoscbb = 340
+precoscgv = 310
 #Definir Layouts das Janelas
 while True:
     def tela_pedido():
