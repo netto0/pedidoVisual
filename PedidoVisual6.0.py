@@ -1,3 +1,4 @@
+import keyboard
 from openpyxl import load_workbook
 from biblio import clientes
 from win32com import client
@@ -8,6 +9,7 @@ import os
 from biblio import janelas
 from unidecode import unidecode
 import re
+import keyboard
 # Definir Data Padrão
 data_atual = datetime.today()
 data_texto = data_atual.strftime('%d/%m/%y')
@@ -55,7 +57,7 @@ while True:
 
         sg.theme('Reddit')
         layout = [
-            [sg.I(key='-SEARCH-',size=(45,1),enable_events=True),sg.B('Search',size=(8,1))],
+            [sg.I(key='-SEARCH-',size=(55,1),enable_events=True)],
             [sg.Listbox(razoes, size=(55, 20), key='-RAZOES-')],
             [sg.Button('OK'), sg.Button('Cadastrar')],
             [sg.Text(f'Data:'), sg.Combo(datas,size=(9,1),key='-DATA-',default_value=datas[0])],
@@ -94,7 +96,7 @@ while True:
             [sg.Button('Enviar'), sg.Button('Fechar')],
             #[sg.Output(size=(70,10))]
         ]
-        return sg.Window('telaPedido',layout=layout,finalize=True)
+        return sg.Window('telaPedido',layout=layout,finalize=True,return_keyboard_events=True)
 
     def precos():
         sg.theme('Reddit')
@@ -134,27 +136,26 @@ while True:
             ls[i] = unidecode(ls[i])
 
 
+    nova_lista = []
     def search(nome, lista):
+        nova_lista = []
         to_ascii(lista)
-        ref = unidecode(nome)
+        ref =unidecode(nome)
         for l in lista:
             if re.findall(rf'{ref}', l, flags=re.I) != []:
-                print(lista.index(l))
+                numero = lista.index(l)
+                nova_lista.append(razoes[numero])
             else:
                 None
+        return nova_lista
 
-    def check(data):
-        typed = janela1['-SEARCH-'].get()
-        if typed == '':
-            data = razoes
-        else:
-            data = []
-            for item in razoes:
-                if typed.lower() in item.lower():
-                    data.append(item)
+    def kb_event_update():
+        if janela == janela1 and len(evento) == 1 or keyboard.is_pressed('\b'):
+            tamanho = len(valores['-SEARCH-'])
+            dta = search(valores['-SEARCH-'], razoes)
+            janela1.Element('-RAZOES-').update(values=dta)
 
-
-    #Definindo Janelas (Janela1 = Janela inicial)
+    # Definindo Janelas (Janela1 = Janela inicial)
     janela1,janela2,janela3,janela4 = tela_pedido(), None, None,None
 
 
@@ -162,6 +163,7 @@ while True:
     while True:
         janela, evento, valores = sg.read_all_windows()
     #Eventos Janela1
+        kb_event_update()
         #Fechar Janela
         if janela == janela1 and evento == 'Fechar':
             exit()
@@ -171,9 +173,6 @@ while True:
         if janela == janela1 and evento == 'Cadastrar':
             janela1.hide()
             janela2 = janelas.janelaCadastro()
-
-        """if janela == janela1 and evento == valores['-RAZOES-']:  # if something is highlighted in the list
-            janela1.Element('-SEARCH-').update(value=valores['-RAZOES-'][0])"""
 
         if janela == janela1 and evento == 'OK':
             try:
@@ -190,13 +189,13 @@ while True:
                 print('Digite um código válido')
                 print(e)
 
-        if janela == janela1 and evento == 'Search':
-            #ind = search(valores['-SEARCH-'], razoes)
-            #num = int(ind)
-            #janela1.Element('-RAZOES-').update(value='-RAZOES-'[3])
-            check('a')
-
-
+        if janela == janela1 and evento == 'Clear':
+            nova_lista = []
+            janela1.Element('-RAZOES-').Update(values=razoes)
+            janela1.Element('-SEARCH-').Update(value='')
+            janela1.Element('razaoPedido').Update(value='Razão:')
+            janela1.Element('-FORMA-').Update(value='')
+            janela1.Element('-PRAZO-').Update(value='')
 
         #Redefinir Data para Padrão
 

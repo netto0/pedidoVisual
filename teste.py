@@ -1,5 +1,6 @@
 import re
 import unidecode
+import PySimpleGUI as sg
 
 razoes =["0 | Adriano Braga dos Santos","1 | Antônio Carlos Amaral","2 | Gilvan Delfino de Oliveira",
           "3 | Ilma Delfino de Oliveira",          "4 | João Ferreira dos Santos","5 | José dos Reis Silva",
@@ -33,15 +34,20 @@ def to_ascii(ls):
 
 
 def search(nome, lista):
+    nova_lista = []
     to_ascii(lista)
     ref = unidecode.unidecode(nome)
     for l in lista:
         if re.findall(rf'{ref}',l,flags=re.I) != []:
-            print(lista.index(l))
+            numero = lista.index(l)
+            nova_lista.append(razoes[numero])
         else:
             None
-
+    return nova_lista
 
 #janela1.Element('-SEARCH-').update(value=f'')
-a = 'string'
-print(a.find('z'))
+#print(search())
+
+    def kb_event():
+        if sg.KeyboardEvent:
+            print('oi')
