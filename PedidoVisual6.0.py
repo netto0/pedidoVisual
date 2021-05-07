@@ -1,4 +1,3 @@
-import keyboard
 from openpyxl import load_workbook
 from biblio import clientes
 from win32com import client
