@@ -19,12 +19,13 @@ def give_razao():
 give_razao()
 
 #Preços Padrão
-precobb = 175
-precogv = 160
-precoverm = 215
-precopto = 207
-precoscbb = 340
-precoscgv = 310
+precobb = 195
+precogv = 185
+precoverm = 225
+precopto = 215
+precoscbb = 380
+precoscgv = 360
+
 #Definir Layouts das Janelas
 while True:
     def tela_pedido():
@@ -143,11 +144,14 @@ while True:
             None
 
     def data_format():
+        data = valores['-DATA-']
         try:
             if janela == janela1 and len(evento) == 1 or keyboard.is_pressed('\b'):
-                tamanho = len(valores['-DATA-'])
+                tamanho = len(data)
                 if tamanho == 2 or tamanho == 5:
-                    janela1.Element('-DATA-').update(value=f'{valores["-DATA-"]}/')
+                    janela1.Element('-DATA-').update(value=f'{data}/')
+                elif tamanho == 6 and str(data).isnumeric():
+                    janela1.Element('-DATA-').update(value=f'{data[0:2]}/{data[2:4]}/{data[4:8]}')
         except:
             None
     # Definindo Janelas (Janela1 = Janela inicial)

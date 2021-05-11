@@ -133,7 +133,6 @@ time.sleep(20)
 contador = 0
 for contato in contatos:
     msg = f'Bom dia {apelidos[contador]}, você vai precisar de feijão pra semana? Está R$ {precobb} o barbalho e R$ {precogv} o goval.'
-    #errata = 'Errata: Preço Goval = 175, desculpe o engano'
     buscar_contato(contato)
     # Enviar mensagem
     enviar_mensagem(msg)
@@ -141,7 +140,6 @@ for contato in contatos:
 contadorSR = 0
 for contato in contatosSR:
     msgSR = f'Bom dia {apelidosSR[contadorSR]}, o senhor vai precisar de feijão pra semana? Está R$ {precobb} o barbalho e R$ {precogv} o goval.'
-    #errata = 'Errata: Preço Goval = 175, desculpe o engano'
     buscar_contato(contato)
     # Enviar mensagem
     enviar_mensagem(msgSR)
@@ -149,7 +147,6 @@ for contato in contatosSR:
 contadorSRA = 0
 for contato in contatosSRA:
     msgSRA = f'Bom dia {apelidosSRA[contadorSRA]}, a senhora vai precisar de feijão pra semana? Está R$ {precobb} o barbalho e R$ {precogv} o goval.'
-    #errata = 'Errata: Preço Goval = 175, desculpe o engano'
     buscar_contato(contato)
     # Enviar mensagem
     enviar_mensagem(msgSRA)
