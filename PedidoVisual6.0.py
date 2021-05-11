@@ -9,16 +9,21 @@ from biblio import janelas
 from unidecode import unidecode
 import re
 import keyboard
+
 # Definir Data Padrão
 data_atual = datetime.today()
 data_texto = data_atual.strftime('%d/%m/%y')
 razoes = []
+
+
 def give_razao():
-    for c in range(0,68):
+    for c in range(0, 68):
         razoes.append(clientes.itensArquivo(c)[0])
+
+
 give_razao()
 
-#Preços Padrão
+# Preços Padrão
 precobb = 195
 precogv = 185
 precoverm = 225
@@ -26,73 +31,82 @@ precopto = 215
 precoscbb = 380
 precoscgv = 360
 
-#Definir Layouts das Janelas
+# Definir Layouts das Janelas
 while True:
     def tela_pedido():
-        formaPagamento = ('Ch.','Bol.')
+        formaPagamento = ('Ch.', 'Bol.')
         prazoPagamento = (
             'À Vista', '14 dias', '28 dias', '30 dias', '35 dias', '40 dias', '45 dias', '50 dias', '28/35 dias',
             '30/40 dias', '30/45 dias', '30/60 dias', '35/45 dias', '30/40/50 dias')
-        datas = (data_texto, '')
-
         sg.theme('Reddit')
         layout = [
-            [sg.I(key='-SEARCH-',size=(55,1),enable_events=True)],
-            [sg.Listbox(razoes, size=(55, 20), key='-RAZOES-')],
-            [sg.Button('OK'), sg.Button('Cadastrar')],
-            [sg.Text(f'Data:'), sg.I(size=(9,1),key='-DATA-',default_text=data_texto,),sg.B('Hoje')],
-            [sg.Text(f'Razão:',key='razaoPedido',size=(40,1))],
-            [sg.Text(f'Forma:'),sg.Combo(formaPagamento, key='-FORMA-',size=(5,1)),sg.Text('Prazo:'),
-             sg.Combo(prazoPagamento,key=('-PRAZO-'))],
-            [sg.Checkbox('S/N', key='nota'), sg.Text('Quantidades'),sg.Text('Preços'),sg.Text('R$')],
-            [sg.Text('Barbalho 1kg'), sg.Input(f'{int(0)}',key='qtd_bb_1kg', size=(10, 1)),sg.Button('+1',key='+bb1'),
-             sg.Button('-1',key='-bb1'),sg.Input(f'{int(precobb)}',key='prc_bb_1kg', size=(10, 1)),
-             sg.Button('+1',key='+bb1prc'),sg.Button('-1',key='-bb1prc')],
-            [sg.Text('Barbalho 2kg'), sg.Input(f'{int(0)}',key='qtd_bb_2kg', size=(10, 1)),sg.Button('+1',key='+bb2'),
-             sg.Button('-1',key='-bb2'),sg.Input(f'{int(precobb)}',key='prc_bb_2kg', size=(10, 1)),
-             sg.Button('+1',key='+bb2prc'),sg.Button('-1',key='-bb2prc')],
-            [sg.Text('Barbalho 5kg'), sg.Input(f'{int(0)}',key='qtd_bb_5kg', size=(10, 1)),sg.Button('+1',key='+bb5'),
-             sg.Button('-1',key='-bb5'),sg.Input(f'{int(precobb)}',key='prc_bb_5kg', size=(10, 1)),
-             sg.Button('+1',key='+bb5prc'),sg.Button('-1',key='-bb5prc')],
-            [sg.Text('Vermelho     '), sg.Input(f'{int(0)}',key='qtd_verm', size=(10, 1)),sg.Button('+1',key='+verm'),
-             sg.Button('-1',key='-verm'),sg.Input(f'{int(precoverm)}',key='prc_verm', size=(10, 1)),
-             sg.Button('+1',key='+vermprc'),sg.Button('-1',key='-vermprc')],
-            [sg.Text('Preto           '), sg.Input(f'{int(0)}',key='qtd_pto', size=(10, 1)),sg.Button('+1',key='+pto'),
-             sg.Button('-1',key='-pto'),sg.Input(f'{int(precopto)}',key='prc_pto', size=(10, 1)),
-             sg.Button('+1',key='+ptoprc'),sg.Button('-1',key='-ptoprc')],
-            [sg.Text('Goval 1kg    '), sg.Input(f'{int(0)}',key='qtd_gv_1kg', size=(10, 1)),sg.Button('+1',key='+gv1'),
-             sg.Button('-1',key='-gv1'),sg.Input(f'{int(precogv)}',key='prc_gv_1kg', size=(10, 1)),
-             sg.Button('+1',key='+gv1prc'),sg.Button('-1',key='-gv1prc')],
-            [sg.Text('Goval 5kg    '), sg.Input(f'{int(0)}',key='qtd_gv_5kg', size=(10, 1)),sg.Button('+1',key='+gv5'),
-             sg.Button('-1',key='-gv5'),sg.Input(f'{int(precogv)}',key='prc_gv_5kg', size=(10, 1)),
-             sg.Button('+1',key='+gv5prc'),sg.Button('-1',key='-gv5prc')],
-            [sg.Text('Sc. Barbalho'), sg.Input(f'{int(0)}',key='qtd_sc_bb', size=(10, 1)),sg.Button('+1',key='+scbb'),
-             sg.Button('-1',key='-scbb'),sg.Input(f'{int(precoscbb)}',key='prc_sc_bb', size=(10, 1)),
-             sg.Button('+1',key='+scbbprc'),sg.Button('-1',key='-scbbprc')],
-            [sg.Text('Sc. Goval     '), sg.Input(f'{int(0)}',key='qtd_sc_gv', size=(10, 1)),sg.Button('+1',key='+scgv'),
-             sg.Button('-1',key='-scgv'),sg.Input(f'{int(precoscgv)}',key='prc_sc_gv', size=(10, 1)),
-             sg.Button('+1',key='+scgvprc'),sg.Button('-1',key='-scgvprc')],
-            [sg.Text('Observações'), sg.Input(key='obs', size=(42, 1))],
-            [sg.Button('Enviar'), sg.Button('Fechar')],
-            #[sg.Output(size=(70,10))]
+            [sg.I(key='-SEARCH-', size=(55, 1), enable_events=True)],
+            [sg.LB(razoes, size=(55, 20), key='-RAZOES-')],
+            [sg.B('OK'), sg.B('Cadastrar')],
+            [sg.T(f'Data:'), sg.I(size=(9, 1), key='-DATA-', default_text=data_texto, ), sg.B('Hoje')],
+            [sg.T(f'Razão:', key='razaoPedido', size=(40, 1))],
+            [sg.T(f'Forma:'), sg.Combo(formaPagamento, key='-FORMA-', size=(5, 1)), sg.T('Prazo:'),
+             sg.Combo(prazoPagamento, key=('-PRAZO-'))],
+            [sg.Checkbox('S/N', key='nota'), sg.T('Quantidades'), sg.T('Preços'), sg.T('R$')],
+            [sg.T('Barbalho 1kg'), sg.I(f'{int(0)}', key='qtd_bb_1kg', size=(10, 1)),
+             sg.B('+1', key='+bb1'),
+             sg.B('-1', key='-bb1'), sg.I(f'{int(precobb)}', key='prc_bb_1kg', size=(10, 1)),
+             sg.B('+1', key='+bb1prc'), sg.B('-1', key='-bb1prc')],
+            [sg.T('Barbalho 2kg'), sg.I(f'{int(0)}', key='qtd_bb_2kg', size=(10, 1)),
+             sg.B('+1', key='+bb2'),
+             sg.B('-1', key='-bb2'), sg.I(f'{int(precobb)}', key='prc_bb_2kg', size=(10, 1)),
+             sg.B('+1', key='+bb2prc'), sg.B('-1', key='-bb2prc')],
+            [sg.T('Barbalho 5kg'), sg.I(f'{int(0)}', key='qtd_bb_5kg', size=(10, 1)),
+             sg.B('+1', key='+bb5'),
+             sg.B('-1', key='-bb5'), sg.I(f'{int(precobb)}', key='prc_bb_5kg', size=(10, 1)),
+             sg.B('+1', key='+bb5prc'), sg.B('-1', key='-bb5prc')],
+            [sg.T('Vermelho     '), sg.I(f'{int(0)}', key='qtd_verm', size=(10, 1)),
+             sg.B('+1', key='+verm'),
+             sg.B('-1', key='-verm'), sg.I(f'{int(precoverm)}', key='prc_verm', size=(10, 1)),
+             sg.B('+1', key='+vermprc'), sg.B('-1', key='-vermprc')],
+            [sg.T('Preto           '), sg.I(f'{int(0)}', key='qtd_pto', size=(10, 1)),
+             sg.B('+1', key='+pto'),
+             sg.B('-1', key='-pto'), sg.I(f'{int(precopto)}', key='prc_pto', size=(10, 1)),
+             sg.B('+1', key='+ptoprc'), sg.B('-1', key='-ptoprc')],
+            [sg.T('Goval 1kg    '), sg.I(f'{int(0)}', key='qtd_gv_1kg', size=(10, 1)),
+             sg.B('+1', key='+gv1'),
+             sg.B('-1', key='-gv1'), sg.I(f'{int(precogv)}', key='prc_gv_1kg', size=(10, 1)),
+             sg.B('+1', key='+gv1prc'), sg.B('-1', key='-gv1prc')],
+            [sg.T('Goval 5kg    '), sg.I(f'{int(0)}', key='qtd_gv_5kg', size=(10, 1)),
+             sg.B('+1', key='+gv5'),
+             sg.B('-1', key='-gv5'), sg.I(f'{int(precogv)}', key='prc_gv_5kg', size=(10, 1)),
+             sg.B('+1', key='+gv5prc'), sg.B('-1', key='-gv5prc')],
+            [sg.T('Sc. Barbalho'), sg.I(f'{int(0)}', key='qtd_sc_bb', size=(10, 1)),
+             sg.B('+1', key='+scbb'),
+             sg.B('-1', key='-scbb'), sg.I(f'{int(precoscbb)}', key='prc_sc_bb', size=(10, 1)),
+             sg.B('+1', key='+scbbprc'), sg.B('-1', key='-scbbprc')],
+            [sg.T('Sc. Goval     '), sg.I(f'{int(0)}', key='qtd_sc_gv', size=(10, 1)),
+             sg.B('+1', key='+scgv'),
+             sg.B('-1', key='-scgv'), sg.I(f'{int(precoscgv)}', key='prc_sc_gv', size=(10, 1)),
+             sg.B('+1', key='+scgvprc'), sg.B('-1', key='-scgvprc')],
+            [sg.T('Observações'), sg.I(key='obs', size=(42, 1))],
+            [sg.B('Enviar'), sg.B('Fechar')],
+            # [sg.O(size=(70,10))]
         ]
-        return sg.Window('telaPedido',layout=layout,finalize=True,return_keyboard_events=True)
+        return sg.Window('telaPedido', layout=layout, finalize=True, return_keyboard_events=True)
+
 
     def precos():
         sg.theme('Reddit')
         layout = [
             [sg.Text('Usar Preços')],
-            [sg.Text('Barbalho R$'),sg.Input(key='preco_bb')],
-            [sg.Text('Goval R$'),sg.Input(key='preco_gv')],
-            [sg.Text('Vermelho R$'),sg.Input(key='preco_verm')],
-            [sg.Text('Preto R$'),sg.Input(key='preco_pto')],
-            [sg.Text('Sc. Barbalho R$'),sg.Input(key='preco_sc_bb')],
-            [sg.Text('Sc. Goval R$'),sg.Input(key='preco_sc_gv')],
-            [sg.Button('OK'),sg.Button('VOLTAR')]
+            [sg.Text('Barbalho R$'), sg.Input(key='preco_bb')],
+            [sg.Text('Goval R$'), sg.Input(key='preco_gv')],
+            [sg.Text('Vermelho R$'), sg.Input(key='preco_verm')],
+            [sg.Text('Preto R$'), sg.Input(key='preco_pto')],
+            [sg.Text('Sc. Barbalho R$'), sg.Input(key='preco_sc_bb')],
+            [sg.Text('Sc. Goval R$'), sg.Input(key='preco_sc_gv')],
+            [sg.Button('OK'), sg.Button('VOLTAR')]
         ]
-        return sg.Window('inserirPrecos',layout=layout,finalize=True)
+        return sg.Window('inserirPrecos', layout=layout, finalize=True)
 
-    def atualizarVisorSoma(valor,elemento):
+
+    def atualizarVisorSoma(valor, elemento):
         soma = int(valor) + int(1)
         try:
             janela1.Element(elemento).update(value=soma)
@@ -100,7 +114,7 @@ while True:
             print(f'erro {e}')
 
 
-    def atualizarVisorSub(valor,elemento):
+    def atualizarVisorSub(valor, elemento):
         if int(valor) == 0:
             sub = 0
         else:
@@ -128,7 +142,7 @@ while True:
                 numero = lista.index(l)
                 nova_lista.append(razoes[numero])
             else:
-                None
+                var = None
         if indice:
             return lista.index(nova_lista[0])
         else:
@@ -141,7 +155,8 @@ while True:
                 dta = search(valores['-SEARCH-'], razoes)
                 janela1.Element('-RAZOES-').update(values=dta)
         except:
-            None
+            var = None
+
 
     def data_format():
         data = valores['-DATA-']
@@ -153,19 +168,20 @@ while True:
                 elif tamanho == 6 and str(data).isnumeric():
                     janela1.Element('-DATA-').update(value=f'{data[0:2]}/{data[2:4]}/{data[4:8]}')
         except:
-            None
+            var = None
+
+
     # Definindo Janelas (Janela1 = Janela inicial)
-    janela1,janela2,janela3,janela4 = tela_pedido(), None, None,None
+    janela1, janela2, janela3, janela4 = tela_pedido(), None, None, None
 
-
-    #Ler os eventos
+    # Ler os eventos
     while True:
         janela, evento, valores = sg.read_all_windows()
-    #Eventos Janela1
+        # Eventos Janela1
         kb_event_update()
         data_format()
         data_valida = False
-        #Fechar Janela
+        # Fechar Janela
         if janela == janela1 and evento == 'Fechar':
             exit()
         if janela == janela1 and evento == sg.WIN_CLOSED:
@@ -178,14 +194,14 @@ while True:
         if janela == janela1 and evento == 'OK':
             try:
                 if valores['-RAZOES-']:  # if something is highlighted in the list
-                    codigoPedidoPrevia = search(valores['-RAZOES-'][0],razoes,indice=True)
-                clientePrevia = clientes.itensArquivo(codigoPedidoPrevia)
-                razao = clientePrevia[0]
-                formaPrevia = clientePrevia[2]
-                prazoPrevia = clientePrevia[3]
-                janela1.Element('razaoPedido').update(value=f'Razão: {razao}')
-                janela1.Element('-PRAZO-').update(value=f'{prazoPrevia} dias')
-                janela1.Element('-FORMA-').update(value=f'{formaPrevia}')
+                    codigoPedidoPrevia = search(valores['-RAZOES-'][0], razoes, indice=True)
+                    clientePrevia = clientes.itensArquivo(codigoPedidoPrevia)
+                    razao = clientePrevia[0]
+                    formaPrevia = clientePrevia[2]
+                    prazoPrevia = clientePrevia[3]
+                    janela1.Element('razaoPedido').update(value=f'Razão: {razao}')
+                    janela1.Element('-PRAZO-').update(value=f'{prazoPrevia} dias')
+                    janela1.Element('-FORMA-').update(value=f'{formaPrevia}')
             except Exception as e:
                 print('Digite um código válido')
                 print(e)
@@ -198,103 +214,43 @@ while True:
             janela1.Element('-FORMA-').Update(value='')
             janela1.Element('-PRAZO-').Update(value='')
 
-        #Redefinir Data para Padrão
+        # Definir Função dos botões "+1" e "-1"
 
-        #Definir Função dos botões "+1" e "-1"
-        if janela == janela1 and evento == '+bb1':
-            atualizarVisorSoma(valores['qtd_bb_1kg'],'qtd_bb_1kg')
-        if janela == janela1 and evento == '-bb1':
-            atualizarVisorSub(valores['qtd_bb_1kg'],'qtd_bb_1kg')
 
-        if janela == janela1 and evento == '+bb1prc':
-            atualizarVisorSoma(valores['prc_bb_1kg'],'prc_bb_1kg')
-        if janela == janela1 and evento == '-bb1prc':
-            atualizarVisorSub(valores['prc_bb_1kg'],'prc_bb_1kg')
+        def buttons(evento1, evento2, valor):
+            pevento1 = f'{evento1}'
+            pevento2 = f'{evento2}'
+            valorV = f'{valor}'
 
-        if janela == janela1 and evento == '+bb2':
-            atualizarVisorSoma(valores['qtd_bb_2kg'],'qtd_bb_2kg')
-        if janela == janela1 and evento == '-bb2':
-            atualizarVisorSub(valores['qtd_bb_2kg'],'qtd_bb_2kg')
+            if janela == janela1 and evento == pevento1:
+                atualizarVisorSoma(valores[valorV], valorV)
+            if janela == janela1 and evento == pevento2:
+                atualizarVisorSub(valores[valorV], valorV)
 
-        if janela == janela1 and evento == '+bb2prc':
-            atualizarVisorSoma(valores['prc_bb_2kg'],'prc_bb_2kg')
-        if janela == janela1 and evento == '-bb2prc':
-            atualizarVisorSub(valores['prc_bb_2kg'],'prc_bb_2kg')
 
-        if janela == janela1 and evento == '+bb5':
-            atualizarVisorSoma(valores['qtd_bb_5kg'],'qtd_bb_5kg')
-        if janela == janela1 and evento == '-bb5':
-            atualizarVisorSub(valores['qtd_bb_5kg'],'qtd_bb_5kg')
-
-        if janela == janela1 and evento == '+bb5prc':
-            atualizarVisorSoma(valores['prc_bb_5kg'],'prc_bb_5kg')
-        if janela == janela1 and evento == '-bb5prc':
-            atualizarVisorSub(valores['prc_bb_5kg'],'prc_bb_5kg')
-
-        if janela == janela1 and evento == '+verm':
-            atualizarVisorSoma(valores['qtd_verm'],'qtd_verm')
-        if janela == janela1 and evento == '-verm':
-            atualizarVisorSub(valores['qtd_verm'],'qtd_verm')
-
-        if janela == janela1 and evento == '+vermprc':
-            atualizarVisorSoma(valores['prc_verm'],'prc_verm')
-        if janela == janela1 and evento == '-vermprc':
-            atualizarVisorSub(valores['prc_verm'],'prc_verm')
-
-        if janela == janela1 and evento == '+pto':
-            atualizarVisorSoma(valores['qtd_pto'],'qtd_pto')
-        if janela == janela1 and evento == '-pto':
-            atualizarVisorSub(valores['qtd_pto'],'qtd_pto')
-
-        if janela == janela1 and evento == '+ptoprc':
-            atualizarVisorSoma(valores['prc_pto'],'prc_pto')
-        if janela == janela1 and evento == '-ptoprc':
-            atualizarVisorSub(valores['prc_pto'],'prc_pto')
-
-        if janela == janela1 and evento == '+gv1':
-            atualizarVisorSoma(valores['qtd_gv_1kg'],'qtd_gv_1kg')
-        if janela == janela1 and evento == '-gv1':
-            atualizarVisorSub(valores['qtd_gv_1kg'],'qtd_gv_1kg')
-
-        if janela == janela1 and evento == '+gv1prc':
-            atualizarVisorSoma(valores['prc_gv_1kg'],'prc_gv_1kg')
-        if janela == janela1 and evento == '-gv1prc':
-            atualizarVisorSub(valores['prc_gv_1kg'],'prc_gv_1kg')
-
-        if janela == janela1 and evento == '+gv5':
-            atualizarVisorSoma(valores['qtd_gv_5kg'],'qtd_gv_5kg')
-        if janela == janela1 and evento == '-gv5':
-            atualizarVisorSub(valores['qtd_gv_5kg'],'qtd_gv_5kg')
-
-        if janela == janela1 and evento == '+gv5prc':
-            atualizarVisorSoma(valores['prc_gv_5kg'],'prc_gv_5kg')
-        if janela == janela1 and evento == '-gv5prc':
-            atualizarVisorSub(valores['prc_gv_5kg'],'prc_gv_5kg')
-
-        if janela == janela1 and evento == '+scbb':
-            atualizarVisorSoma(valores['qtd_sc_bb'],'qtd_sc_bb')
-        if janela == janela1 and evento == '-scbb':
-            atualizarVisorSub(valores['qtd_sc_bb'],'qtd_sc_bb')
-
-        if janela == janela1 and evento == '+scbbprc':
-            atualizarVisorSoma(valores['prc_sc_bb'],'prc_sc_bb')
-        if janela == janela1 and evento == '-scbbprc':
-            atualizarVisorSub(valores['prc_sc_bb'],'prc_sc_bb')
-
-        if janela == janela1 and evento == '+scgv':
-            atualizarVisorSoma(valores['qtd_sc_gv'],'qtd_sc_gv')
-        if janela == janela1 and evento == '-scgv':
-            atualizarVisorSub(valores['qtd_sc_gv'],'qtd_sc_gv')
-
-        if janela == janela1 and evento == '+scgvprc':
-            atualizarVisorSoma(valores['prc_sc_gv'],'prc_sc_gv')
-        if janela == janela1 and evento == '-scgvprc':
-            atualizarVisorSub(valores['prc_sc_gv'],'prc_sc_gv')
+        buttons('+bb1', '-bb1', 'qtd_bb_1kg')
+        buttons('+bb1prc', '-bb1prc', 'prc_bb_1kg')
+        buttons('+bb2', '-bb2', 'qtd_bb_2kg')
+        buttons('+bb2prc', '-bb2prc', 'prc_bb_2kg')
+        buttons('+bb5', '-bb5', 'qtd_bb_5kg')
+        buttons('+bb5prc', '-bb5prc', 'prc_bb_5kg')
+        buttons('+verm', '-verm', 'qtd_verm')
+        buttons('+vermprc', '-vermprc', 'prc_verm')
+        buttons('+pto', '-pto', 'qtd_pto')
+        buttons('+ptoprc', '-ptoprc', 'prc_pto')
+        buttons('+gv1', '-gv1', 'qtd_gv_1kg')
+        buttons('+gv1prc', '-gv1prc', 'prc_gv_1kg')
+        buttons('+gv5', '-gv5', 'qtd_gv_5kg')
+        buttons('+gv5prc', '-gv5prc', 'prc_gv_5kg')
+        buttons('+scbb', '-scbb', 'qtd_sc_bb')
+        buttons('+scbbprc', '-scbbprc', 'prc_sc_bb')
+        buttons('+scgv', '-scgv', 'qtd_sc_gv')
+        buttons('+scgvprc', '-scgvprc', 'prc_sc_gv')
 
         if janela == janela1 and evento == 'Ver Lista':
             clientes.linhasArquivo('cadastrosclientes.txt')
-        #Definir Função do Botão Enviar
-        if janela == janela1 and evento == 'Enviar':
+
+        if janela == janela1 and evento == 'Enviar':  # Definir Função do Botão Enviar
 
             try:
                 precobb1 = valores['prc_bb_1kg']
@@ -317,8 +273,7 @@ while True:
                 qtdSCGVPedido = int(valores['qtd_sc_gv'])
                 obsPedido = valores['obs']
                 date = valores['-DATA-']
-                codigo = codigoPedidoPrevia
-                cliente = clientes.itensArquivo(codigo)
+                cliente = clientes.itensArquivo(codigoPedidoPrevia)
                 nome_cliente = cliente[0]
                 cidade1 = cliente[1]
 
@@ -326,7 +281,7 @@ while True:
                 prazo = valores['-PRAZO-']
                 pagamento = f'{forma} {prazo}'
 
-                if valores['nota'] == True:
+                if valores['nota']:
                     try:
                         forma.index('Ch')
                         notaPedido = 'S/N'
@@ -334,7 +289,7 @@ while True:
                         break
                     except:
                         print('Não é permitido enviar boleto sem nota')
-                if valores['nota'] == False:
+                if not valores['nota']:
                     notaPedido = ''
                     janela1.hide()
                     break
@@ -342,10 +297,10 @@ while True:
                     print('Digite uma data válida!')
             except Exception as e:
                 print('Digite um código válido')
-                print(TypeError,e)
+                print(TypeError, e)
 
-    #Eventos Janela4
-    #Abrir Bloco de Pedido no Excel
+    # Eventos Janela4
+    # Abrir Bloco de Pedido no Excel
     diretorioexcel = os.getcwd()
     nomebloco = "BLOCOPROJETO.xlsx"
     print('CRIANDO ARQUIVO')
@@ -353,16 +308,16 @@ while True:
     wb = load_workbook(arquivo)
     ws = wb.worksheets[0]
 
-    #Programa Principal
+    # Programa Principal
 
-    #Cabecalho
+    # Cabecalho
     ws['C2'] = f'{nome_cliente}'
     ws['C4'] = f'{cidade1}'
     ws['H6'] = f'{pagamento}'
     ws['Q2'] = f'{date}'
     ws['Q3'] = f'{notaPedido}'
 
-    #Quantidades
+    # Quantidades
     qtdbb1 = ws['A8'] = int(f'{qtdBB1Pedido}')
     qtdbb2 = ws['A9'] = int(f'{qtdBB2Pedido}')
     qtdbb5 = ws['A10'] = int(f'{qtdBB5Pedido}')
@@ -374,7 +329,7 @@ while True:
     qtscgv = ws['A27'] = int(f'{qtdSCGVPedido}')
     obser = ws['H33'] = f'{obsPedido}'
 
-    #Preços Unitários
+    # Preços Unitários
     if qtdBB1Pedido > 0:
         pubb1 = ws['O8'] = int(f'{precobb1}')
     if qtdBB2Pedido > 0:
@@ -394,19 +349,19 @@ while True:
     if qtdSCGVPedido > 0:
         puscgv = ws['O27'] = int(f'{precoscgv}')
 
-    #Salvar pedido XL
+    # Salvar pedido XL
     diretorio = os.getcwd()
 
     pastaxl = 'PedidosXL'
     pastapdf = 'PedidosPDF'
 
-    if os.path.isdir(pastaxl):  # vemos de este diretorio ja existe
+    if os.path.isdir(pastaxl):  # vemos se este diretório ja existe
         None
     else:
         os.mkdir(pastaxl)  # aqui criamos a pasta caso nao exista
         print('Pasta criada com sucesso!')
 
-    if os.path.isdir(pastapdf):  # vemos se este diretorio ja existe
+    if os.path.isdir(pastapdf):  # vemos se este diretório ja existe
         None
     else:
         os.mkdir(pastapdf)  # aqui criamos a pasta caso nao exista
