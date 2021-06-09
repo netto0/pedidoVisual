@@ -1,3 +1,7 @@
+import PySimpleGUI as sg
+precoBB = 190
+precoGV = 180
+
 contatos = [{'nome': 'Antônio', 'contato': 'Antônio Pena (Tabela1)'},
             {'nome': 'Gilvan', 'contato': 'Gilvan Carlos Chagas'},
             {'nome': 'Ilma', 'contato': 'Ilma Carlos Chagas'},
@@ -43,5 +47,30 @@ contatos = [{'nome': 'Antônio', 'contato': 'Antônio Pena (Tabela1)'},
             {'nome': 'Fabiano', 'contato': 'Fabiano Serra(Tabela2)'},
             {'nome': 'Rosilene', 'contato': 'Rosilene (Tabela2)'},
             {'nome': 'Aline', 'contato': 'Aline Vereda'}]
+nomes = []
+for c in range(0,len(contatos)):
+    nomes.append(contatos[c]['nome'])
+while True:
+    def telaBot():
+        layout = [
+            [sg.T('Barbalho: R$'),sg.I(size=(6,1),default_text=precoBB,key="-PRECOBB-"),sg.B('EDIT $',size=(6,1)),sg.B('ENVIAR',size=(6,1))],
+            [sg.T('Goval: R$'),sg.I(size=(6,1),default_text=precoGV,key="-PRECOGV-")],
+            [sg.I(key="-SEARCH-",size=(40,1))],
+            [sg.T('Selecione para remover da lista de envio',text_color='yellow')],
+            [sg.LB(nomes,size=(40,10),key="-CONTATOS-",select_mode='multiple',enable_events=False)],
+            [sg.B('Confirmar')],
+            [sg.T('Selecionados',text_color='yellow')],
+            [sg.LB('',size=(40,10),key="-CONTATOSSELECT-")],
+        ]
+        return sg.Window('telaBot',layout=layout,finalize=True)
 
-print(contatos[2]['nome'])
+
+    nova_lista = []
+    while True:
+        event, values = telaBot().read()
+
+        if event == 'Confirmar':
+            nova_lista.append(values["-CONTATOS-"])
+            print(nova_lista)
+            telaBot().Element("-CONTATOSSELECT-").Update(nova_lista)
+            break

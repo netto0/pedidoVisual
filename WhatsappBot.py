@@ -14,15 +14,6 @@ def enviar_mensagem(msg):
     campo_mensagem[1].send_keys(Keys.ENTER)
 
 
-def testar(funcao):
-    while True:
-        try:
-            funcao
-            break
-        except:
-            print('ERRO!')
-
-
 # Definir contatos
 contatos = ['Antônio Pena (Tabela1)', 'Gilvan Carlos Chagas', 'Ilma Carlos Chagas', 'Bena Damasceno', 'Renato (Tabela 2)',
              'Silvana Dainner (Tabela1)', 'Keila Pérola', 'Terezinha', 'Robinson (Tabela1)', 'Ailton Itanhém', 'Débora (Zé Baiano) Itanhém',

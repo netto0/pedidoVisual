@@ -24,12 +24,12 @@ def give_razao():
 give_razao()
 
 # Preços Padrão
-precobb = 195
-precogv = 185
-precoverm = 225
-precopto = 215
-precoscbb = 380
-precoscgv = 360
+precobb = 200
+precogv = 190
+precoverm = 235
+precopto = 210
+precoscbb = 390
+precoscgv = 370
 
 # Tamanho Padrão
 tam_horiz = 430
@@ -50,48 +50,44 @@ while True:
             [sg.I(key='-SEARCH-', size=(tam_I, 1), enable_events=True)],
             [sg.LB(razoes, size=(tam_I, 15), key='-RAZOES-')],
             [sg.B('OK',size=(tam_B,1)), sg.B('Cadastrar',size=(tam_B,1))],
-            [sg.T(f'Data:',size=(4,1),border_width=3), sg.I(size=(8, 1), key='-DATA-', default_text=data_texto, ),
-             sg.B('Hoje',size=(9,1)),sg.Checkbox('S/N', key='nota',),sg.T(f'      Forma:'), sg.Combo(formaPagamento,
-            key='-FORMA-', size=(5, 1),)],
-            [sg.T(f'Razão:', key='razaoPedido', size=(31, 1)),sg.T('  Prazo:'),
-             sg.Combo(prazoPagamento, key=('-PRAZO-'),size=(9,1))],
-            [sg.T('Produto',size=(10,1),justification='c'), sg.T('Qtd.',size=(8,1),justification='l'), sg.T('R$',
-            size=(12,1),justification='r')],
-            [sg.T('Barbalho 1kg',size=(10,1)), sg.I(f'{int(0)}', key='qtd_bb_1kg', size=tam_Qtd),
-             sg.B('+1', key='+bb1',size=tam_btt),
-             sg.B('-1', key='-bb1',size=tam_btt), sg.I(f'{int(precobb)}', key='prc_bb_1kg',size=tam_Qtd),
+            [sg.T(f'Data:',size=(4,1),border_width=3), sg.I(size=(8,1), key='-DATA-', default_text=data_texto,text_color='yellow' ),
+             sg.B('Hoje',size=(9,1)),sg.Checkbox('S/N', key='nota',),sg.T(f'Forma:',size=(8,1),justification='r'), sg.Combo(formaPagamento,key='-FORMA-', size=(5, 1),text_color='yellow')],
+            [sg.T(f'Razão:', key='razao', size=(5,1)),sg.T(f'', key='razaoPedido', size=(24, 1),font=('Helvetica', 10),text_color='yellow'),sg.T('  Prazo:'),sg.Combo(prazoPagamento, key=('-PRAZO-'),size=(9,1),text_color='yellow')],
+            [sg.T('Produto',size=(10,1),font=('Helvetica', 10,'bold'),justification='c'), sg.T('Qtd.',size=(9,1),border_width=0,font=('Helvetica', 10,'bold'),justification='l'), sg.T('R$',size=(12,1),font=('Helvetica', 10,'bold'),justification='r')],
+            [sg.T('Barbalho 1kg',key='barbalho1kg',size=(10,1)), sg.I(f'{int(0)}', key='qtd_bb_1kg', size=tam_Qtd),sg.B('+1', key='+bb1',size=tam_btt),
+             sg.B('-1', key='-bb1',size=tam_btt), sg.I(f'{int(precobb)}', key='prc_bb_1kg',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+bb1prc',size=tam_btt), sg.B('-1', key='-bb1prc',size=tam_btt)],
             [sg.T('Barbalho 2kg',size=(10,1)), sg.I(f'{int(0)}', key='qtd_bb_2kg',size=tam_Qtd),
              sg.B('+1', key='+bb2',size=tam_btt),
-             sg.B('-1', key='-bb2',size=tam_btt), sg.I(f'{int(precobb)}', key='prc_bb_2kg',size=tam_Qtd),
+             sg.B('-1', key='-bb2',size=tam_btt), sg.I(f'{int(precobb)}', key='prc_bb_2kg',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+bb2prc',size=tam_btt), sg.B('-1', key='-bb2prc',size=tam_btt)],
             [sg.T('Barbalho 5kg',size=(10,1)), sg.I(f'{int(0)}', key='qtd_bb_5kg',size=tam_Qtd),
              sg.B('+1', key='+bb5',size=tam_btt),
-             sg.B('-1', key='-bb5',size=tam_btt), sg.I(f'{int(precobb)}', key='prc_bb_5kg',size=tam_Qtd),
+             sg.B('-1', key='-bb5',size=tam_btt), sg.I(f'{int(precobb)}', key='prc_bb_5kg',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+bb5prc',size=tam_btt), sg.B('-1', key='-bb5prc',size=tam_btt)],
             [sg.T('Vermelho',size=(10,1)), sg.I(f'{int(0)}', key='qtd_verm',size=tam_Qtd),
              sg.B('+1', key='+verm',size=tam_btt),
-             sg.B('-1', key='-verm',size=tam_btt), sg.I(f'{int(precoverm)}', key='prc_verm',size=tam_Qtd),
+             sg.B('-1', key='-verm',size=tam_btt), sg.I(f'{int(precoverm)}', key='prc_verm',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+vermprc',size=tam_btt), sg.B('-1', key='-vermprc',size=tam_btt)],
             [sg.T('Preto',size=(10,1)), sg.I(f'{int(0)}', key='qtd_pto',size=tam_Qtd),
              sg.B('+1', key='+pto',size=tam_btt),
-             sg.B('-1', key='-pto',size=tam_btt), sg.I(f'{int(precopto)}', key='prc_pto',size=tam_Qtd),
+             sg.B('-1', key='-pto',size=tam_btt), sg.I(f'{int(precopto)}', key='prc_pto',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+ptoprc',size=tam_btt), sg.B('-1', key='-ptoprc',size=tam_btt)],
             [sg.T('Goval 1kg',size=(10,1)), sg.I(f'{int(0)}', key='qtd_gv_1kg',size=tam_Qtd),
              sg.B('+1', key='+gv1',size=tam_btt),
-             sg.B('-1', key='-gv1',size=tam_btt), sg.I(f'{int(precogv)}', key='prc_gv_1kg',size=tam_Qtd),
+             sg.B('-1', key='-gv1',size=tam_btt), sg.I(f'{int(precogv)}', key='prc_gv_1kg',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+gv1prc',size=tam_btt), sg.B('-1', key='-gv1prc',size=tam_btt)],
             [sg.T('Goval 5kg',size=(10,1)), sg.I(f'{int(0)}', key='qtd_gv_5kg',size=tam_Qtd),
              sg.B('+1', key='+gv5',size=tam_btt),
-             sg.B('-1', key='-gv5',size=tam_btt), sg.I(f'{int(precogv)}', key='prc_gv_5kg',size=tam_Qtd),
+             sg.B('-1', key='-gv5',size=tam_btt), sg.I(f'{int(precogv)}', key='prc_gv_5kg',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+gv5prc',size=tam_btt), sg.B('-1', key='-gv5prc',size=tam_btt)],
             [sg.T('Sc. Barbalho',size=(10,1)), sg.I(f'{int(0)}', key='qtd_sc_bb',size=tam_Qtd),
              sg.B('+1', key='+scbb',size=tam_btt),
-             sg.B('-1', key='-scbb',size=tam_btt), sg.I(f'{int(precoscbb)}', key='prc_sc_bb',size=tam_Qtd),
+             sg.B('-1', key='-scbb',size=tam_btt), sg.I(f'{int(precoscbb)}', key='prc_sc_bb',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+scbbprc',size=tam_btt), sg.B('-1', key='-scbbprc',size=tam_btt)],
             [sg.T('Sc. Goval',size=(10,1)), sg.I(f'{int(0)}', key='qtd_sc_gv',size=tam_Qtd),
              sg.B('+1', key='+scgv',size=tam_btt),
-             sg.B('-1', key='-scgv',size=tam_btt), sg.I(f'{int(precoscgv)}', key='prc_sc_gv',size=tam_Qtd),
+             sg.B('-1', key='-scgv',size=tam_btt), sg.I(f'{int(precoscgv)}', key='prc_sc_gv',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+scgvprc',size=tam_btt), sg.B('-1', key='-scgvprc',size=tam_btt)],
             [sg.T('Observações',size=(10,1)), sg.I(key='obs', size=(44, 1))],
             [sg.B('Enviar',size=(tam_B,1)), sg.B('Fechar',size=(tam_B,1))],
@@ -210,7 +206,7 @@ while True:
                     razao = clientePrevia[0]
                     formaPrevia = clientePrevia[2]
                     prazoPrevia = clientePrevia[3]
-                    janela1.Element('razaoPedido').update(value=f'Razão: {razao}')
+                    janela1.Element('razaoPedido').update(value=f'{razao}')
                     janela1.Element('-PRAZO-').update(value=f'{prazoPrevia} dias')
                     janela1.Element('-FORMA-').update(value=f'{formaPrevia}')
             except Exception as e:
@@ -221,7 +217,7 @@ while True:
             nova_lista = []
             janela1.Element('-RAZOES-').Update(values=razoes)
             janela1.Element('-SEARCH-').Update(value='')
-            janela1.Element('razaoPedido').Update(value='Razão:')
+            janela1.Element('razaoPedido').Update(value='')
             janela1.Element('-FORMA-').Update(value='')
             janela1.Element('-PRAZO-').Update(value='')
 
