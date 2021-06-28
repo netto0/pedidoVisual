@@ -58,7 +58,7 @@ Edgard Rocha Santos;Serra dos Aimorés;Bol.;30
 Eric Melo de Oliveira;Serra dos Aimorés;Bol.;35
 Hélcio Ramos Sobral;Serra dos Aimorés;Ch.;30
 Janilson Soares Araújo;Serra dos Aimorés;À Vista;
-José Roberto Dias do Amaral;Serra dos Aimorés;Ch.;30
+José Roberto Dias do Amaral;Serra dos Aimorés;Bol.;30
 Valdirene Bremer Ramalho;Serra dos Aimorés;Bol.;35
 Milton Alves de Almeida;Serra dos Aimorés;Bol.;28
 Zilberto Freitas Meireles;Serra dos Aimorés;Bol.;35

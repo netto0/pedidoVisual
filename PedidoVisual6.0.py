@@ -1,3 +1,5 @@
+import asyncio
+from itertools import count
 from openpyxl import load_workbook
 from biblio import clientes
 from win32com import client
@@ -9,27 +11,31 @@ from biblio import janelas
 from unidecode import unidecode
 import re
 import keyboard
+import json
 
 # Definir Data Padrão
 data_atual = datetime.today()
 data_texto = data_atual.strftime('%d/%m/%y')
 razoes = []
 
+with open('cadastrosclientes.txt') as f:
+    linhas = sum(1 for _ in f)
 
 def give_razao():
-    for c in range(0, 68):
-        razoes.append(clientes.itensArquivo(c)[0])
+    for c in range(0, linhas):
+        size = 54-len(clientes.itensArquivo(c)[0])
+        razoes.append(f'{clientes.itensArquivo(c)[0].ljust(50)}{clientes.itensArquivo(c)[1].rjust(17)}')
 
 
 give_razao()
 
 # Preços Padrão
-precobb = 200
-precogv = 190
-precoverm = 235
-precopto = 210
-precoscbb = 390
-precoscgv = 370
+precobb = 180
+precogv = 170
+precoverm = 225
+precopto = 185
+precoscbb = 350
+precoscgv = 330
 
 # Tamanho Padrão
 tam_horiz = 430
@@ -38,8 +44,10 @@ tam_I = 57
 tam_B = 24
 tam_Qtd = (4,1)
 tam_btt = (5,1)
+teste = [f'{"_"*54}']
 # Definir Layouts das Janelas
 while True:
+
     def tela_pedido():
         formaPagamento = ('Ch.', 'Bol.')
         prazoPagamento = (
@@ -51,47 +59,46 @@ while True:
             [sg.LB(razoes, size=(tam_I, 15), key='-RAZOES-')],
             [sg.B('OK',size=(tam_B,1)), sg.B('Cadastrar',size=(tam_B,1))],
             [sg.T(f'Data:',size=(4,1),border_width=3), sg.I(size=(8,1), key='-DATA-', default_text=data_texto,text_color='yellow' ),
-             sg.B('Hoje',size=(9,1)),sg.Checkbox('S/N', key='nota',),sg.T(f'Forma:',size=(8,1),justification='r'), sg.Combo(formaPagamento,key='-FORMA-', size=(5, 1),text_color='yellow')],
+             sg.B('Hoje',size=(9,1)),sg.B('Relatório',size=(9,1)),sg.T(f'Forma:',justification='r'), sg.Combo(formaPagamento,key='-FORMA-', size=(5, 1),text_color='yellow')],
             [sg.T(f'Razão:', key='razao', size=(5,1)),sg.T(f'', key='razaoPedido', size=(24, 1),font=('Helvetica', 10),text_color='yellow'),sg.T('  Prazo:'),sg.Combo(prazoPagamento, key=('-PRAZO-'),size=(9,1),text_color='yellow')],
-            [sg.T('Produto',size=(10,1),font=('Helvetica', 10,'bold'),justification='c'), sg.T('Qtd.',size=(9,1),border_width=0,font=('Helvetica', 10,'bold'),justification='l'), sg.T('R$',size=(12,1),font=('Helvetica', 10,'bold'),justification='r')],
+            [sg.T('Produto',size=(10,1),font=('Helvetica', 10,'bold'),justification='c'), sg.T('Qtd.',size=(9,1),border_width=0,font=('Helvetica', 10,'bold'),justification='l'), sg.T('R$',size=(12,1),font=('Helvetica', 10,'bold'),justification='r'),sg.Checkbox('S/N', key='nota',)],
             [sg.T('Barbalho 1kg',key='barbalho1kg',size=(10,1)), sg.I(f'{int(0)}', key='qtd_bb_1kg', size=tam_Qtd),sg.B('+1', key='+bb1',size=tam_btt),
              sg.B('-1', key='-bb1',size=tam_btt), sg.I(f'{int(precobb)}', key='prc_bb_1kg',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+bb1prc',size=tam_btt), sg.B('-1', key='-bb1prc',size=tam_btt)],
-            [sg.T('Barbalho 2kg',size=(10,1)), sg.I(f'{int(0)}', key='qtd_bb_2kg',size=tam_Qtd),
+            [sg.T('Barbalho 2kg',key='barbalho2kg',size=(10,1)), sg.I(f'{int(0)}', key='qtd_bb_2kg',size=tam_Qtd),
              sg.B('+1', key='+bb2',size=tam_btt),
              sg.B('-1', key='-bb2',size=tam_btt), sg.I(f'{int(precobb)}', key='prc_bb_2kg',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+bb2prc',size=tam_btt), sg.B('-1', key='-bb2prc',size=tam_btt)],
-            [sg.T('Barbalho 5kg',size=(10,1)), sg.I(f'{int(0)}', key='qtd_bb_5kg',size=tam_Qtd),
+            [sg.T('Barbalho 5kg',key='barbalho5kg',size=(10,1)), sg.I(f'{int(0)}', key='qtd_bb_5kg',size=tam_Qtd),
              sg.B('+1', key='+bb5',size=tam_btt),
              sg.B('-1', key='-bb5',size=tam_btt), sg.I(f'{int(precobb)}', key='prc_bb_5kg',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+bb5prc',size=tam_btt), sg.B('-1', key='-bb5prc',size=tam_btt)],
-            [sg.T('Vermelho',size=(10,1)), sg.I(f'{int(0)}', key='qtd_verm',size=tam_Qtd),
+            [sg.T('Vermelho',key='barbalhoVerm',size=(10,1)), sg.I(f'{int(0)}', key='qtd_verm',size=tam_Qtd),
              sg.B('+1', key='+verm',size=tam_btt),
              sg.B('-1', key='-verm',size=tam_btt), sg.I(f'{int(precoverm)}', key='prc_verm',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+vermprc',size=tam_btt), sg.B('-1', key='-vermprc',size=tam_btt)],
-            [sg.T('Preto',size=(10,1)), sg.I(f'{int(0)}', key='qtd_pto',size=tam_Qtd),
+            [sg.T('Preto',key='barbalhoPto',size=(10,1)), sg.I(f'{int(0)}', key='qtd_pto',size=tam_Qtd),
              sg.B('+1', key='+pto',size=tam_btt),
              sg.B('-1', key='-pto',size=tam_btt), sg.I(f'{int(precopto)}', key='prc_pto',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+ptoprc',size=tam_btt), sg.B('-1', key='-ptoprc',size=tam_btt)],
-            [sg.T('Goval 1kg',size=(10,1)), sg.I(f'{int(0)}', key='qtd_gv_1kg',size=tam_Qtd),
+            [sg.T('Goval 1kg',key='goval1kg',size=(10,1)), sg.I(f'{int(0)}', key='qtd_gv_1kg',size=tam_Qtd),
              sg.B('+1', key='+gv1',size=tam_btt),
              sg.B('-1', key='-gv1',size=tam_btt), sg.I(f'{int(precogv)}', key='prc_gv_1kg',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+gv1prc',size=tam_btt), sg.B('-1', key='-gv1prc',size=tam_btt)],
-            [sg.T('Goval 5kg',size=(10,1)), sg.I(f'{int(0)}', key='qtd_gv_5kg',size=tam_Qtd),
+            [sg.T('Goval 5kg',key='goval5kg',size=(10,1)), sg.I(f'{int(0)}', key='qtd_gv_5kg',size=tam_Qtd),
              sg.B('+1', key='+gv5',size=tam_btt),
              sg.B('-1', key='-gv5',size=tam_btt), sg.I(f'{int(precogv)}', key='prc_gv_5kg',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+gv5prc',size=tam_btt), sg.B('-1', key='-gv5prc',size=tam_btt)],
-            [sg.T('Sc. Barbalho',size=(10,1)), sg.I(f'{int(0)}', key='qtd_sc_bb',size=tam_Qtd),
+            [sg.T('Sc. Barbalho',key='sacoBarbalho',size=(10,1)), sg.I(f'{int(0)}', key='qtd_sc_bb',size=tam_Qtd),
              sg.B('+1', key='+scbb',size=tam_btt),
              sg.B('-1', key='-scbb',size=tam_btt), sg.I(f'{int(precoscbb)}', key='prc_sc_bb',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+scbbprc',size=tam_btt), sg.B('-1', key='-scbbprc',size=tam_btt)],
-            [sg.T('Sc. Goval',size=(10,1)), sg.I(f'{int(0)}', key='qtd_sc_gv',size=tam_Qtd),
+            [sg.T('Sc. Goval',key='sacoGoval',size=(10,1)), sg.I(f'{int(0)}', key='qtd_sc_gv',size=tam_Qtd),
              sg.B('+1', key='+scgv',size=tam_btt),
              sg.B('-1', key='-scgv',size=tam_btt), sg.I(f'{int(precoscgv)}', key='prc_sc_gv',size=tam_Qtd,justification='c'),
              sg.B('+1', key='+scgvprc',size=tam_btt), sg.B('-1', key='-scgvprc',size=tam_btt)],
             [sg.T('Observações',size=(10,1)), sg.I(key='obs', size=(44, 1))],
             [sg.B('Enviar',size=(tam_B,1)), sg.B('Fechar',size=(tam_B,1))],
-            # [sg.O(size=(70,10))]
         ]
 
         return sg.Window('telaPedido', layout=layout, finalize=True, return_keyboard_events=True,
@@ -135,9 +142,6 @@ while True:
     def to_ascii(ls):
         for i in range(len(ls)):
             ls[i] = unidecode(ls[i])
-
-
-    nova_lista = []
 
 
     def search(nome, lista, indice=False):
@@ -184,6 +188,7 @@ while True:
     # Ler os eventos
     while True:
         janela, evento, valores = sg.read_all_windows()
+
         # Eventos Janela1
         kb_event_update()
         data_format()
@@ -221,38 +226,92 @@ while True:
             janela1.Element('-FORMA-').Update(value='')
             janela1.Element('-PRAZO-').Update(value='')
 
+        if janela == janela1 and evento == 'Relatório':
+            sg.Popup(f'Total de Pedidos: {None}\n'
+                     f'Total Fardos: {None}\n'
+                     f'Total Peso: {None} kgs\n'
+                     f'Valor Total: R$ {None}')
+
         # Definir Função dos botões "+1" e "-1"
 
 
-        def buttons(evento1, evento2, valor):
+        def buttons(evento1, evento2, valor, nomeItem):
             pevento1 = f'{evento1}'
             pevento2 = f'{evento2}'
             valorV = f'{valor}'
+            if len(valores[valorV]) == 0:
+                janela1.Element(valorV).Update(value=0)
+                janela1.Element(nomeItem).Update(text_color='lavender')
+                janela1.Element(valorV).Update(text_color='lavender')
+            try:
+                if int(valores[valorV]) > 0:
+                    janela1.Element(nomeItem).Update(text_color='yellow')
+                    janela1.Element(valorV).Update(text_color='yellow')
+                elif int(valores[valorV]) == 0:
+                    janela1.Element(nomeItem).Update(text_color='lavender')
+                    janela1.Element(valorV).Update(text_color='lavender')
 
-            if janela == janela1 and evento == pevento1:
+            except:
+                pass
+            if evento == pevento1:
                 atualizarVisorSoma(valores[valorV], valorV)
+                janela1.Element(nomeItem).Update(text_color='yellow')
+                janela1.Element(valorV).Update(text_color='yellow')
             if janela == janela1 and evento == pevento2:
                 atualizarVisorSub(valores[valorV], valorV)
+                if int(valores[valorV]) == 1:
+                    janela1.Element(nomeItem).Update(text_color='lavender')
+                    janela1.Element(valorV).Update(text_color='lavender')
+
+        def buttonsPrc(evento1, evento2, valor, valorbase):
+            pevento1 = f'{evento1}'
+            pevento2 = f'{evento2}'
+            valorV = f'{valor}'
+            valorBase1 = int(valorbase)
+            if len(valores[valorV]) == 0:
+                janela1.Element(valorV).Update(value=valorBase1)
+                janela1.Element(valorV).Update(text_color='lightgray')
+            try:
+                if janela == janela1 and int(valores[valorV]) > valorBase1:
+                    janela1.Element(valorV).Update(text_color='lime green')
+                elif janela == janela1 and int(valores[valorV]) == valorBase1:
+                    janela1.Element(valorV).Update(text_color='lightgray')
+                elif janela == janela1 and int(valores[valorV]) < valorBase1:
+                    janela1.Element(valorV).Update(text_color='orange red')
+            except:
+                pass
+            if janela == janela1 and evento == pevento1:
+                atualizarVisorSoma(valores[valorV], valorV)
+                if int(valores[valorV]) >= valorBase1:
+                    janela1.Element(valorV).Update(text_color='lime green')
+                elif int(valores[valorV]) == valorBase1 - 1:
+                    janela1.Element(valorV).Update(text_color='lightgray')
+            if janela == janela1 and evento == pevento2:
+                atualizarVisorSub(valores[valorV], valorV)
+                if int(valores[valorV]) <= valorBase1:
+                    janela1.Element(valorV).Update(text_color='orange red')
+                elif int(valores[valorV]) == valorBase1 + 1:
+                    janela1.Element(valorV).Update(text_color='lightgray')
 
 
-        buttons('+bb1', '-bb1', 'qtd_bb_1kg')
-        buttons('+bb1prc', '-bb1prc', 'prc_bb_1kg')
-        buttons('+bb2', '-bb2', 'qtd_bb_2kg')
-        buttons('+bb2prc', '-bb2prc', 'prc_bb_2kg')
-        buttons('+bb5', '-bb5', 'qtd_bb_5kg')
-        buttons('+bb5prc', '-bb5prc', 'prc_bb_5kg')
-        buttons('+verm', '-verm', 'qtd_verm')
-        buttons('+vermprc', '-vermprc', 'prc_verm')
-        buttons('+pto', '-pto', 'qtd_pto')
-        buttons('+ptoprc', '-ptoprc', 'prc_pto')
-        buttons('+gv1', '-gv1', 'qtd_gv_1kg')
-        buttons('+gv1prc', '-gv1prc', 'prc_gv_1kg')
-        buttons('+gv5', '-gv5', 'qtd_gv_5kg')
-        buttons('+gv5prc', '-gv5prc', 'prc_gv_5kg')
-        buttons('+scbb', '-scbb', 'qtd_sc_bb')
-        buttons('+scbbprc', '-scbbprc', 'prc_sc_bb')
-        buttons('+scgv', '-scgv', 'qtd_sc_gv')
-        buttons('+scgvprc', '-scgvprc', 'prc_sc_gv')
+        buttons('+bb1', '-bb1', 'qtd_bb_1kg', 'barbalho1kg')
+        buttonsPrc('+bb1prc', '-bb1prc', 'prc_bb_1kg', precobb)
+        buttons('+bb2', '-bb2', 'qtd_bb_2kg', 'barbalho2kg')
+        buttonsPrc('+bb2prc', '-bb2prc', 'prc_bb_2kg', precobb)
+        buttons('+bb5', '-bb5', 'qtd_bb_5kg', 'barbalho5kg')
+        buttonsPrc('+bb5prc', '-bb5prc', 'prc_bb_5kg', precobb)
+        buttons('+verm', '-verm', 'qtd_verm', 'barbalhoVerm')
+        buttonsPrc('+vermprc', '-vermprc', 'prc_verm', precoverm)
+        buttons('+pto', '-pto', 'qtd_pto', 'barbalhoPto')
+        buttonsPrc('+ptoprc', '-ptoprc', 'prc_pto', precopto)
+        buttons('+gv1', '-gv1', 'qtd_gv_1kg', 'goval1kg')
+        buttonsPrc('+gv1prc', '-gv1prc', 'prc_gv_1kg', precogv)
+        buttons('+gv5', '-gv5', 'qtd_gv_5kg', 'goval5kg')
+        buttonsPrc('+gv5prc', '-gv5prc', 'prc_gv_5kg', precogv)
+        buttons('+scbb', '-scbb', 'qtd_sc_bb', 'sacoBarbalho')
+        buttonsPrc('+scbbprc', '-scbbprc', 'prc_sc_bb', precoscbb)
+        buttons('+scgv', '-scgv', 'qtd_sc_gv', 'sacoGoval')
+        buttonsPrc('+scgvprc', '-scgvprc', 'prc_sc_gv', precoscgv)
 
         if janela == janela1 and evento == 'Ver Lista':
             clientes.linhasArquivo('cadastrosclientes.txt')

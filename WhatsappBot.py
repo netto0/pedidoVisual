@@ -1,6 +1,12 @@
+# Importar bibliotecas
+from selenium import webdriver
+import time
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.keys import Keys
+
 def buscar_contato(contato):
     campo_pesquisa = driver.find_element_by_xpath('//div[contains(@class,"copyable-text selectable-text")]')
-    time.sleep(3)
+    time.sleep(1.5)
     campo_pesquisa.click()
     campo_pesquisa.send_keys(contato)
     campo_pesquisa.send_keys(Keys.ENTER)
@@ -9,16 +15,14 @@ def buscar_contato(contato):
 def enviar_mensagem(msg):
     campo_mensagem = driver.find_elements_by_xpath('//div[contains(@class,"copyable-text selectable-text")]')
     campo_mensagem[1].click()
-    time.sleep(3)
+    time.sleep(1.5)
     campo_mensagem[1].send_keys(msg)
-    # campo_mensagem[1].send_keys(Keys.ENTER)
+    campo_mensagem[1].send_keys(Keys.ENTER)
 
 # preços do dia
-precobb = 200
-precogv = 190
+precobb = 180
+precogv = 170
 horario = 'Bom dia'
-# horario = 'Boa tarde'
-# Definir contatos
 
 contatos = [{'nome': 'Antônio', 'contato': 'Antônio Pena (Tabela1)'},
             {'nome': 'Gilvan', 'contato': 'Gilvan Carlos Chagas'},
@@ -64,17 +68,14 @@ contatos = [{'nome': 'Antônio', 'contato': 'Antônio Pena (Tabela1)'},
             {'nome': 'Railda', 'contato': 'Railda'},
             {'nome': 'Fabiano', 'contato': 'Fabiano Serra(Tabela2)'},
             {'nome': 'Rosilene', 'contato': 'Rosilene (Tabela2)'},
+            {'nome': 'Aline', 'contato': 'Aline Vereda'},
             {'nome': 'Seu João', 'contato': 'João Reta (Tabela2)', 'tratamento': 'o senhor'},
             {'nome': 'Seu Hélcio', 'contato': 'Hélcio Serra', 'tratamento': 'o senhor'},
             {'nome': 'Dona Maristela', 'contato': 'Dona Maristela', 'tratamento': 'a senhora'},
             {'nome': 'Dona Maria', 'contato': 'Dona Maria (Udr)', 'tratamento': 'a senhora'},
             {'nome': 'Dona Branca', 'contato': 'Dona Branca', 'tratamento': 'a senhora'}]
 
-# Importar bibliotecas
-from selenium import webdriver
-import time
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.keys import Keys
+
 # Navegar até o whatsapp web
 driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.get('https://web.whatsapp.com/')
